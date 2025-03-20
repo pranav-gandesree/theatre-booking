@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-2">
               <Film className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">CineSuite</span>
+              <span className="text-xl font-bold">yovanAV</span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               Transforming ordinary moments into extraordinary cinematic experiences.
@@ -95,7 +95,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">info@cinesuite.com</span>
+                <span className="text-sm text-muted-foreground">info@yovanAV.com</span>
               </li>
             </ul>
           </div>
@@ -103,7 +103,7 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-muted pt-8">
           <p className="text-center text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} CineSuite. All rights reserved.
+            &copy; {new Date().getFullYear()} yovanAV. All rights reserved.
           </p>
         </div>
       </div>

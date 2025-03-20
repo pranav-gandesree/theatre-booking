@@ -59,29 +59,12 @@ export default function GalleryPage() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] w-full overflow-hidden">
-        <Image
-          src="/placeholder.svg?height=800&width=1920"
-          alt="CineSuite Gallery"
-          fill
-          className="object-cover brightness-[0.6]"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-        <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">Our Gallery</h1>
-          <p className="max-w-xl text-lg text-white/90">
-            Take a visual tour of our premium home theatre experiences and setups.
-          </p>
-        </div>
-      </section>
 
       {/* Gallery Grid */}
       <section className="py-16 md:py-24">
         <div className="container px-4 sm:px-6">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Experience CineSuite</h2>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Experience yovanAV</h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
               Browse through our gallery to see the premium experiences we offer and get inspired for your next booking.
             </p>
@@ -112,10 +95,10 @@ export default function GalleryPage() {
         <div className="container px-4 sm:px-6">
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
             <div>
-              <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">See CineSuite in Action</h2>
+              <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">See yovanAV in Action</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Watch our showcase video to get a better feel for the CineSuite experience. From our comfortable
+                  Watch our showcase video to get a better feel for the yovanAV experience. From our comfortable
                   seating to our state-of-the-art audio and visual equipment, every detail is designed to create an
                   unforgettable cinema experience.
                 </p>
@@ -133,7 +116,7 @@ export default function GalleryPage() {
             <div className="relative aspect-video overflow-hidden rounded-xl">
               <Image
                 src="/placeholder.svg?height=720&width=1280"
-                alt="CineSuite Video Showcase"
+                alt="yovanAV Video Showcase"
                 fill
                 className="object-cover"
               />
@@ -153,30 +136,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative py-16 md:py-24">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/placeholder.svg?height=800&width=1920"
-            alt="Theatre Background"
-            fill
-            className="object-cover brightness-[0.3]"
-          />
-        </div>
-        <div className="container relative z-10 px-4 sm:px-6">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Ready to Create Your Own Memories?
-            </h2>
-            <p className="mb-8 text-lg text-white/80">
-              Book your private cinema experience today and be part of our growing gallery of happy customers.
-            </p>
-            <Button size="lg" className="px-8" asChild>
-              <Link href="/book-now">Book Now</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+     
     </div>
   )
 }

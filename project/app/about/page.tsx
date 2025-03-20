@@ -12,7 +12,7 @@ export default function AboutPage() {
       <section className="relative h-[100vh] w-full overflow-hidden">
         <Image
           src={about}
-          alt="About CineSuite"
+          alt="About yovanAV"
           fill
           className="object-cover brightness-[0.6]"
           priority
@@ -21,7 +21,7 @@ export default function AboutPage() {
         <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">Our Story</h1>
           <p className="max-w-xl text-lg text-white/90">
-            Learn about how CineSuite is revolutionizing the private cinema experience.
+            Learn about how yovanAV is revolutionizing the private cinema experience.
           </p>
         </div>
       </section>
@@ -34,7 +34,7 @@ export default function AboutPage() {
               <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">From Passion to Premium Experience</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  CineSuite was born from a simple idea: everyone deserves access to a premium cinema experience without
+                  yovanAV was born from a simple idea: everyone deserves access to a premium cinema experience without
                   the crowds and distractions of traditional theaters.
                 </p>
                 <p>
@@ -48,7 +48,7 @@ export default function AboutPage() {
                   comfortable seating, and personalized service.
                 </p>
                 <p>
-                  Today, CineSuite is the premier destination for those seeking to elevate their viewing experience,
+                  Today, yovanAV is the premier destination for those seeking to elevate their viewing experience,
                   whether it's for a birthday celebration, anniversary, corporate event, or just a memorable night with
                   friends and family.
                 </p>
@@ -57,7 +57,7 @@ export default function AboutPage() {
             <div className="relative h-[400px] overflow-hidden rounded-xl md:h-[500px]">
               <Image
                 src={about2}
-                alt="CineSuite Founders"
+                alt="yovanAV Founders"
                 fill
                 className="object-cover"
               />
@@ -72,7 +72,7 @@ export default function AboutPage() {
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Values</h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              At CineSuite, we're guided by a commitment to excellence and a passion for creating unforgettable
+              At yovanAV, we're guided by a commitment to excellence and a passion for creating unforgettable
               experiences.
             </p>
           </div>
@@ -163,10 +163,10 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">Why Choose CineSuite?</h2>
+              <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">Why Choose yovanAV?</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  At CineSuite, we've reimagined what a cinema experience can be. Our private theatre spaces offer a
+                  At yovanAV, we've reimagined what a cinema experience can be. Our private theatre spaces offer a
                   level of comfort, quality, and personalization that traditional cinemas simply can't match.
                 </p>
                 <p>
@@ -175,7 +175,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   Whether you're celebrating a special occasion, hosting a corporate event, or simply wanting to elevate
-                  your movie night, CineSuite provides the perfect setting.
+                  your movie night, yovanAV provides the perfect setting.
                 </p>
               </div>
               <div className="mt-8">
@@ -194,7 +194,7 @@ export default function AboutPage() {
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Meet Our Team</h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              The passionate individuals behind CineSuite who work tirelessly to create unforgettable experiences.
+              The passionate individuals behind yovanAV who work tirelessly to create unforgettable experiences.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -263,7 +263,7 @@ export default function AboutPage() {
         <div className="container relative z-10 px-4 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Ready to Experience CineSuite?
+              Ready to Experience yovanAV?
             </h2>
             <p className="mb-8 text-lg text-white/80">
               Book your private cinema experience today and see why our customers keep coming back.

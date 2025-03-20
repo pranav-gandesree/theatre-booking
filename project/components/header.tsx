@@ -10,6 +10,7 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Gallery", href: "/gallery" },
+  { name: "Services", href: "/services" },
   { name: "My Bookings", href: "/my-bookings" },
   { name: "Contact", href: "/contact" },
 ]
@@ -22,7 +23,7 @@ export default function Header() {
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center space-x-2">
           <Film className="h-6 w-6 text-primary" />
-          <span className="text-xl font-bold">CineSuite</span>
+          <span className="text-xl font-bold">yovanAV</span>
         </Link>
 
         {/* Desktop navigation */}

@@ -40,23 +40,7 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] w-full overflow-hidden">
-        <Image
-          src="/placeholder.svg?height=800&width=1920"
-          alt="Contact CineSuite"
-          fill
-          className="object-cover brightness-[0.6]"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-        <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">Contact Us</h1>
-          <p className="max-w-xl text-lg text-white/90">
-            Have questions or need assistance? We're here to help you create the perfect cinema experience.
-          </p>
-        </div>
-      </section>
+     
 
       {/* Contact Form and Info */}
       <section className="py-16 md:py-24">
@@ -158,7 +142,7 @@ export default function ContactPage() {
                     <Mail className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
                     <div>
                       <p className="font-medium">Email</p>
-                      <p className="text-muted-foreground">info@cinesuite.com</p>
+                      <p className="text-muted-foreground">info@yovanAV.com</p>
                     </div>
                   </div>
                 </div>

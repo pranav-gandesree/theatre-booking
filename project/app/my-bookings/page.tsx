@@ -70,7 +70,7 @@ export default function MyBookingsPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
         <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">My Bookings</h1>
-          <p className="max-w-xl text-lg text-white/90">View and manage your CineSuite bookings in one place.</p>
+          <p className="max-w-xl text-lg text-white/90">View and manage your yovanAV bookings in one place.</p>
         </div>
       </section>
 
@@ -125,7 +125,7 @@ export default function MyBookingsPage() {
               <div className="mb-12 text-center">
                 <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Your Bookings</h2>
                 <p className="mx-auto max-w-2xl text-muted-foreground">
-                  View and manage your upcoming and past bookings with CineSuite.
+                  View and manage your upcoming and past bookings with yovanAV.
                 </p>
               </div>
 

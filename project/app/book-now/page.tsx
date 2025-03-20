@@ -6,44 +6,119 @@ import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { CalendarIcon, Check } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { CalendarIcon, Film, Volume2, Monitor, Clock, Users, CreditCard } from "lucide-react"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 
 export default function BookNowPage() {
-  const [date, setDate] = useState<Date | undefined>(undefined)
-  const [selectedPackage, setSelectedPackage] = useState<string | undefined>(undefined)
-  const [selectedTheatre, setSelectedTheatre] = useState<string | undefined>(undefined)
-  const [guests, setGuests] = useState<string>("2")
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    specialRequests: "",
-  })
+  const [date, setDate] = useState<Date | undefined>(new Date())
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  // Generate time slots with 4-hour gaps (6am to 10pm)
+  const timeSlots = ["06:00 AM", "10:00 AM", "02:00 PM", "06:00 PM", "10:00 PM"]
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real application, you would handle form submission here
-    console.log("Booking submitted:", {
-      ...formData,
-      date,
-      package: selectedPackage,
-      theatre: selectedTheatre,
-      guests,
-    })
-    alert("Thank you for your booking request! We'll confirm your reservation shortly.")
+  // Screen data
+  const screens = [
+    {
+      id: 1,
+      name: "Screen 1 - Action",
+      description: "Perfect for action movies with immersive sound",
+      price: 199,
+      availability: {
+        "06:00 AM": 8,
+        "10:00 AM": 5,
+        "02:00 PM": 2,
+        "06:00 PM": 0,
+        "10:00 PM": 8,
+      },
+    },
+    {
+      id: 2,
+      name: "Screen 2 - Romance",
+      description: "Intimate setting ideal for date nights",
+      price: 219,
+      availability: {
+        "06:00 AM": 8,
+        "10:00 AM": 6,
+        "02:00 PM": 4,
+        "06:00 PM": 1,
+        "10:00 PM": 7,
+      },
+    },
+    {
+      id: 3,
+      name: "Screen 3 - Family",
+      description: "Kid-friendly environment for family movies",
+      price: 229,
+      availability: {
+        "06:00 AM": 7,
+        "10:00 AM": 3,
+        "02:00 PM": 0,
+        "06:00 PM": 2,
+        "10:00 PM": 8,
+      },
+    },
+    {
+      id: 4,
+      name: "Screen 4 - Horror",
+      description: "Dark atmosphere perfect for scary movies",
+      price: 239,
+      availability: {
+        "06:00 AM": 8,
+        "10:00 AM": 8,
+        "02:00 PM": 6,
+        "06:00 PM": 3,
+        "10:00 PM": 4,
+      },
+    },
+    {
+      id: 5,
+      name: "Screen 5 - Sci-Fi",
+      description: "Futuristic setting for sci-fi enthusiasts",
+      price: 249,
+      availability: {
+        "06:00 AM": 8,
+        "10:00 AM": 7,
+        "02:00 PM": 5,
+        "06:00 PM": 0,
+        "10:00 PM": 2,
+      },
+    },
+    {
+      id: 6,
+      name: "Screen 6 - Classic",
+      description: "Vintage cinema feel for classic movie lovers",
+      price: 259,
+      availability: {
+        "06:00 AM": 6,
+        "10:00 AM": 4,
+        "02:00 PM": 8,
+        "06:00 PM": 5,
+        "10:00 PM": 3,
+      },
+    },
+    {
+      id: 7,
+      name: "Screen 7 - Premium",
+      description: "Our most luxurious theatre experience",
+      price: 299,
+      availability: {
+        "06:00 AM": 8,
+        "10:00 AM": 8,
+        "02:00 PM": 7,
+        "06:00 PM": 4,
+        "10:00 PM": 1,
+      },
+    },
+  ]
+
+  const handleBooking = (screenId: number, timeSlot: string) => {
+    alert(
+      `Booking confirmed for Screen ${screenId} at ${timeSlot} on ${date ? format(date, "MMMM dd, yyyy") : "today"}`,
+    )
   }
 
   return (
@@ -52,7 +127,7 @@ export default function BookNowPage() {
       <section className="relative h-[50vh] w-full overflow-hidden">
         <Image
           src="/placeholder.svg?height=800&width=1920"
-          alt="Book CineSuite"
+          alt="Book yovanAV"
           fill
           className="object-cover brightness-[0.6]"
           priority
@@ -63,369 +138,130 @@ export default function BookNowPage() {
             Book Your Experience
           </h1>
           <p className="max-w-xl text-lg text-white/90">
-            Reserve your private cinema experience in just a few simple steps.
+            Choose from our 7 premium screens for your private cinema experience.
           </p>
         </div>
       </section>
 
-      {/* Booking Form */}
+      {/* Booking Section */}
       <section className="py-16 md:py-24">
         <div className="container px-4 sm:px-6">
-          <div className="grid gap-12 md:grid-cols-2">
-            <div>
-              <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">Reserve Your Theatre</h2>
-              <p className="mb-8 text-muted-foreground">
-                Complete the form below to request your booking. Our team will confirm availability and details within
-                24 hours.
-              </p>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="date">Select Date</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {date ? format(date, "PPP") : "Select a date"}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="time">Select Time</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a time" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10:00">10:00 AM</SelectItem>
-                      <SelectItem value="12:00">12:00 PM</SelectItem>
-                      <SelectItem value="14:00">2:00 PM</SelectItem>
-                      <SelectItem value="16:00">4:00 PM</SelectItem>
-                      <SelectItem value="18:00">6:00 PM</SelectItem>
-                      <SelectItem value="20:00">8:00 PM</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="duration">Duration</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select duration" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2">2 Hours</SelectItem>
-                      <SelectItem value="3">3 Hours</SelectItem>
-                      <SelectItem value="4">4 Hours</SelectItem>
-                      <SelectItem value="5">5 Hours</SelectItem>
-                      <SelectItem value="custom">Custom Duration</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="guests">Number of Guests</Label>
-                  <Select value={guests} onValueChange={setGuests}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select number of guests" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1 Guest</SelectItem>
-                      <SelectItem value="2">2 Guests</SelectItem>
-                      <SelectItem value="3-5">3-5 Guests</SelectItem>
-                      <SelectItem value="6-10">6-10 Guests</SelectItem>
-                      <SelectItem value="11-15">11-15 Guests</SelectItem>
-                      <SelectItem value="16+">16+ Guests</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-4">
-                  <Label>Select Theatre Type</Label>
-                  <RadioGroup value={selectedTheatre} onValueChange={setSelectedTheatre}>
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="relative rounded-lg border p-4 hover:border-primary">
-                        <RadioGroupItem value="standard" id="standard" className="absolute right-4 top-4" />
-                        <Label htmlFor="standard" className="font-medium">
-                          Standard Theatre
-                        </Label>
-                        <p className="text-sm text-muted-foreground">Up to 10 guests, 4K projection</p>
-                        <p className="mt-1 text-sm font-medium">$150/hour</p>
-                      </div>
-                      <div className="relative rounded-lg border p-4 hover:border-primary">
-                        <RadioGroupItem value="premium" id="premium" className="absolute right-4 top-4" />
-                        <Label htmlFor="premium" className="font-medium">
-                          Premium Theatre
-                        </Label>
-                        <p className="text-sm text-muted-foreground">Up to 15 guests, 4K with Dolby Atmos</p>
-                        <p className="mt-1 text-sm font-medium">$250/hour</p>
-                      </div>
-                      <div className="relative rounded-lg border p-4 hover:border-primary">
-                        <RadioGroupItem value="vip" id="vip" className="absolute right-4 top-4" />
-                        <Label htmlFor="vip" className="font-medium">
-                          VIP Suite
-                        </Label>
-                        <p className="text-sm text-muted-foreground">
-                          Up to 8 guests, luxury recliners, private lounge
-                        </p>
-                        <p className="mt-1 text-sm font-medium">$350/hour</p>
-                      </div>
-                      <div className="relative rounded-lg border p-4 hover:border-primary">
-                        <RadioGroupItem value="party" id="party" className="absolute right-4 top-4" />
-                        <Label htmlFor="party" className="font-medium">
-                          Party Room
-                        </Label>
-                        <p className="text-sm text-muted-foreground">Up to 20 guests, large screen, party setup</p>
-                        <p className="mt-1 text-sm font-medium">$400/hour</p>
-                      </div>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                <div className="space-y-4">
-                  <Label>Select Package</Label>
-                  <RadioGroup value={selectedPackage} onValueChange={setSelectedPackage}>
-                    <div className="grid gap-4">
-                      <div className="relative rounded-lg border p-4 hover:border-primary">
-                        <RadioGroupItem value="basic" id="basic" className="absolute right-4 top-4" />
-                        <Label htmlFor="basic" className="font-medium">
-                          Basic Package
-                        </Label>
-                        <p className="text-sm text-muted-foreground">Theatre rental only</p>
-                        <p className="mt-1 text-sm font-medium">No additional cost</p>
-                      </div>
-                      <div className="relative rounded-lg border p-4 hover:border-primary">
-                        <RadioGroupItem value="concession" id="concession" className="absolute right-4 top-4" />
-                        <Label htmlFor="concession" className="font-medium">
-                          Concession Package
-                        </Label>
-                        <p className="text-sm text-muted-foreground">Popcorn, soft drinks, and candy for all guests</p>
-                        <p className="mt-1 text-sm font-medium">+$15 per guest</p>
-                      </div>
-                      <div className="relative rounded-lg border p-4 hover:border-primary">
-                        <RadioGroupItem value="celebration" id="celebration" className="absolute right-4 top-4" />
-                        <Label htmlFor="celebration" className="font-medium">
-                          Celebration Package
-                        </Label>
-                        <p className="text-sm text-muted-foreground">
-                          Concessions, decorations, and a custom welcome message
-                        </p>
-                        <p className="mt-1 text-sm font-medium">+$25 per guest</p>
-                      </div>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="John Doe"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="john@example.com"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    placeholder="(123) 456-7890"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="specialRequests">Special Requests</Label>
-                  <Textarea
-                    id="specialRequests"
-                    name="specialRequests"
-                    placeholder="Any special requests or additional information..."
-                    rows={4}
-                    value={formData.specialRequests}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <Button type="submit" size="lg" className="w-full">
-                  Request Booking
-                </Button>
-              </form>
-            </div>
-
-            <div className="space-y-8">
-              <div className="rounded-xl bg-muted/30 p-6">
-                <h3 className="mb-4 text-xl font-bold">Why Book with CineSuite?</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start space-x-3">
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary">
-                      <Check className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Premium Experience</p>
-                      <p className="text-sm text-muted-foreground">
-                        State-of-the-art audio and visual equipment for an immersive experience.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary">
-                      <Check className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Complete Privacy</p>
-                      <p className="text-sm text-muted-foreground">
-                        Exclusive use of the theatre for you and your guests only.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary">
-                      <Check className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Customizable Experience</p>
-                      <p className="text-sm text-muted-foreground">
-                        Choose your content, adjust lighting, and personalize your experience.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary">
-                      <Check className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Dedicated Support</p>
-                      <p className="text-sm text-muted-foreground">
-                        Our staff is available to assist you throughout your booking.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="overflow-hidden rounded-xl">
-                <Image
-                  src="/placeholder.svg?height=800&width=1200"
-                  alt="Theatre Interior"
-                  width={1200}
-                  height={800}
-                  className="w-full object-cover"
-                />
-              </div>
-
-              <div className="rounded-xl bg-muted/30 p-6">
-                <h3 className="mb-4 text-xl font-bold">Booking Policies</h3>
-                <div className="space-y-3 text-sm text-muted-foreground">
-                  <p>
-                    <span className="font-medium text-foreground">Deposit:</span> A 50% deposit is required to confirm
-                    your booking.
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Cancellation:</span> Full refund if cancelled 72+
-                    hours in advance. 50% refund if cancelled 24-72 hours in advance. No refund for cancellations less
-                    than 24 hours in advance.
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Changes:</span> Booking changes are subject to
-                    availability and must be requested at least 48 hours in advance.
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Content:</span> All content must comply with copyright
-                    laws and our content policy.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="bg-muted/30 py-16 md:py-24">
-        <div className="container px-4 sm:px-6">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">What Our Customers Say</h2>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Available Screens</h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              Don't just take our word for it. Here's what people are saying about their experience with us.
+              Each screen has a capacity of 8 people and features Dolby Atmos sound and a 120-inch 4K screen.
             </p>
+
+            <div className="mt-8 flex flex-col items-center justify-center">
+              <div className="mb-4 flex items-center gap-2">
+                <Label>Select Date:</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn("w-[240px] justify-start text-left font-normal", !date && "text-muted-foreground")}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {date ? format(date, "PPP") : "Select a date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      initialFocus
+                      disabled={(date) => date < new Date()}
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
           </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="rounded-xl bg-white p-6 shadow">
-              <div className="mb-4 flex items-center space-x-2">
-                <div className="h-2 w-16 rounded bg-primary"></div>
-                <div className="h-2 w-4 rounded bg-primary/50"></div>
+
+          <Tabs defaultValue="all" className="mb-8">
+            <TabsList className="mx-auto flex justify-center">
+              <TabsTrigger value="all">All Screens</TabsTrigger>
+              <TabsTrigger value="available">Available Now</TabsTrigger>
+              <TabsTrigger value="premium">Premium</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="all" className="mt-6">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {screens.map((screen) => (
+                  <ScreenCard
+                    key={screen.id}
+                    screen={screen}
+                    timeSlots={timeSlots}
+                    onBook={handleBooking}
+                    selectedDate={date ? format(date, "MMMM dd, yyyy") : "today"}
+                  />
+                ))}
               </div>
-              <p className="mb-4 italic text-muted-foreground">
-                "We celebrated our anniversary here and it was magical. The sound quality and screen size made us feel
-                like we were in our own private cinema!"
-              </p>
-              <div className="flex items-center space-x-4">
-                <div className="h-10 w-10 rounded-full bg-muted"></div>
+            </TabsContent>
+
+            <TabsContent value="available" className="mt-6">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {screens
+                  .filter((screen) => Object.values(screen.availability).some((avail) => avail > 0))
+                  .map((screen) => (
+                    <ScreenCard
+                      key={screen.id}
+                      screen={screen}
+                      timeSlots={timeSlots}
+                      onBook={handleBooking}
+                      selectedDate={date ? format(date, "MMMM dd, yyyy") : "today"}
+                    />
+                  ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="premium" className="mt-6">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {screens
+                  .filter((screen) => screen.price >= 249)
+                  .map((screen) => (
+                    <ScreenCard
+                      key={screen.id}
+                      screen={screen}
+                      timeSlots={timeSlots}
+                      onBook={handleBooking}
+                      selectedDate={date ? format(date, "MMMM dd, yyyy") : "today"}
+                    />
+                  ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+
+          <div className="mt-12 rounded-xl bg-muted/30 p-6">
+            <h3 className="mb-4 text-xl font-bold">Booking Information</h3>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div className="flex items-start gap-3">
+                <Users className="mt-1 h-5 w-5 text-primary" />
                 <div>
-                  <p className="font-medium">Sarah & Michael</p>
-                  <p className="text-sm text-muted-foreground">Anniversary Celebration</p>
+                  <p className="font-medium">Capacity</p>
+                  <p className="text-sm text-muted-foreground">Each screen accommodates up to 8 people</p>
                 </div>
               </div>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow">
-              <div className="mb-4 flex items-center space-x-2">
-                <div className="h-2 w-16 rounded bg-primary"></div>
-                <div className="h-2 w-4 rounded bg-primary/50"></div>
-              </div>
-              <p className="mb-4 italic text-muted-foreground">
-                "My son's birthday party was a hit! All the kids loved watching their favorite movie on the big screen
-                with surround sound."
-              </p>
-              <div className="flex items-center space-x-4">
-                <div className="h-10 w-10 rounded-full bg-muted"></div>
+              <div className="flex items-start gap-3">
+                <Volume2 className="mt-1 h-5 w-5 text-primary" />
                 <div>
-                  <p className="font-medium">David Thompson</p>
-                  <p className="text-sm text-muted-foreground">Birthday Party</p>
+                  <p className="font-medium">Sound System</p>
+                  <p className="text-sm text-muted-foreground">Dolby Atmos immersive sound experience</p>
                 </div>
               </div>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow">
-              <div className="mb-4 flex items-center space-x-2">
-                <div className="h-2 w-16 rounded bg-primary"></div>
-                <div className="h-2 w-4 rounded bg-primary/50"></div>
-              </div>
-              <p className="mb-4 italic text-muted-foreground">
-                "We hosted a corporate event here and it exceeded our expectations. The staff was professional and the
-                setup was perfect."
-              </p>
-              <div className="flex items-center space-x-4">
-                <div className="h-10 w-10 rounded-full bg-muted"></div>
+              <div className="flex items-start gap-3">
+                <Monitor className="mt-1 h-5 w-5 text-primary" />
                 <div>
-                  <p className="font-medium">Jennifer Lee</p>
-                  <p className="text-sm text-muted-foreground">Corporate Event</p>
+                  <p className="font-medium">Screen</p>
+                  <p className="text-sm text-muted-foreground">120-inch 4K Ultra HD screen</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Clock className="mt-1 h-5 w-5 text-primary" />
+                <div>
+                  <p className="font-medium">Refund Policy</p>
+                  <p className="text-sm text-muted-foreground">Full refund if cancelled 72+ hours before showtime</p>
                 </div>
               </div>
             </div>
@@ -433,29 +269,100 @@ export default function BookNowPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative py-16 md:py-24">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/placeholder.svg?height=800&width=1920"
-            alt="Theatre Background"
-            fill
-            className="object-cover brightness-[0.3]"
-          />
+
+  
+    </div>
+  )
+}
+
+// Label component
+function Label({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+      {children}
+    </span>
+  )
+}
+
+// Screen Card Component
+function ScreenCard({
+  screen,
+  timeSlots,
+  onBook,
+  selectedDate,
+}: {
+  screen: any
+  timeSlots: string[]
+  onBook: (screenId: number, timeSlot: string) => void
+  selectedDate: string
+}) {
+  return (
+    <Card className="overflow-hidden">
+      <CardHeader className="pb-3">
+        <div className="flex justify-between items-start">
+          <div>
+            <CardTitle>{screen.name}</CardTitle>
+            <CardDescription className="mt-1">{screen.description}</CardDescription>
+          </div>
+          <Badge variant="outline" className="bg-primary/10 text-primary">
+            ${screen.price}
+          </Badge>
         </div>
-        <div className="container relative z-10 px-4 sm:px-6">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Questions About Booking?</h2>
-            <p className="mb-8 text-lg text-white/80">
-              Our team is ready to help you plan the perfect cinema experience. Contact us for personalized assistance.
-            </p>
-            <Button size="lg" variant="outline" className="bg-white/10 text-white backdrop-blur-sm hover:bg-white/20">
-              Contact Us
-            </Button>
+      </CardHeader>
+      <CardContent className="pb-2">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Film className="h-4 w-4 text-primary" />
+            <span className="text-sm">120-inch 4K screen</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Volume2 className="h-4 w-4 text-primary" />
+            <span className="text-sm">Dolby Atmos sound</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Users className="h-4 w-4 text-primary" />
+            <span className="text-sm">Capacity: 8 people</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CreditCard className="h-4 w-4 text-primary" />
+            <span className="text-sm">Refund eligible 72hrs before</span>
           </div>
         </div>
-      </section>
-    </div>
+
+        <div className="mt-4">
+          <h4 className="text-sm font-medium mb-2">Available Slots for {selectedDate}:</h4>
+          <div className="grid grid-cols-2 gap-2">
+            {timeSlots.map((slot) => {
+              const available = screen.availability[slot]
+              return (
+                <div
+                  key={slot}
+                  className={`p-2 rounded-md border text-center ${
+                    available === 0
+                      ? "bg-muted/50 text-muted-foreground cursor-not-allowed"
+                      : "hover:border-primary cursor-pointer"
+                  }`}
+                >
+                  <div className="text-sm font-medium">{slot}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {available === 0 ? "Fully Booked" : `${available} of 8 available`}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button
+          className="w-full"
+          onClick={() => onBook(screen.id, timeSlots.find((slot) => screen.availability[slot] > 0) || "")}
+          disabled={Object.values(screen.availability).every((avail) => avail === 0)}
+        >
+          Book Now - ${screen.price}
+        </Button>
+      </CardFooter>
+    </Card>
   )
 }
 

@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "CineSuite | Premium Home Theatre Booking",
+  title: "yovanAV | Premium Home Theatre Booking",
   description: "Book your private cinema experience for any occasion",
     generator: 'v0.dev'
 }
