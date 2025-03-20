@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CalendarIcon, Film, Volume2, Monitor, Clock, Users, CreditCard } from "lucide-react"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
+import main from "../../public/main.jpg"
 
 export default function BookNowPage() {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -126,7 +127,7 @@ export default function BookNowPage() {
       {/* Hero Section */}
       <section className="relative h-[50vh] w-full overflow-hidden">
         <Image
-          src="/placeholder.svg?height=800&width=1920"
+          src={main}
           alt="Book yovanAV"
           fill
           className="object-cover brightness-[0.6]"

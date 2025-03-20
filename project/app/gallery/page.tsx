@@ -1,61 +1,64 @@
+// "use client";
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import CloudinaryGallery from "./CloudinaryGallery";
 
 export default function GalleryPage() {
   // Array of gallery images
-  const galleryImages = [
-    {
-      src: "/placeholder.svg?height=600&width=800",
-      alt: "Luxury Home Theatre Setup",
-      caption: "Our premium theatre setup with reclining seats",
-    },
-    {
-      src: "/placeholder.svg?height=800&width=600",
-      alt: "Birthday Celebration",
-      caption: "A birthday celebration in our main theatre",
-    },
-    {
-      src: "/placeholder.svg?height=600&width=800",
-      alt: "Couples Movie Night",
-      caption: "Romantic movie night setup for couples",
-    },
-    {
-      src: "/placeholder.svg?height=800&width=800",
-      alt: "Concession Stand",
-      caption: "Our fully stocked concession stand",
-    },
-    {
-      src: "/placeholder.svg?height=600&width=800",
-      alt: "Corporate Event",
-      caption: "Corporate presentation in our largest theatre",
-    },
-    {
-      src: "/placeholder.svg?height=800&width=600",
-      alt: "Kids Movie Party",
-      caption: "Special setup for children's movie parties",
-    },
-    {
-      src: "/placeholder.svg?height=600&width=800",
-      alt: "Projection System",
-      caption: "Our state-of-the-art 4K projection system",
-    },
-    {
-      src: "/placeholder.svg?height=800&width=800",
-      alt: "Sound System",
-      caption: "Dolby Atmos surround sound speakers",
-    },
-    {
-      src: "/placeholder.svg?height=600&width=800",
-      alt: "VIP Lounge",
-      caption: "Exclusive VIP lounge for premium bookings",
-    },
-    {
-      src: "/placeholder.svg?height=800&width=600",
-      alt: "Anniversary Setup",
-      caption: "Special anniversary celebration setup",
-    },
-  ]
+  // const galleryImages = [
+  //   {
+  //     src: "/placeholder.svg?height=600&width=800",
+  //     alt: "Luxury Home Theatre Setup",
+  //     caption: "Our premium theatre setup with reclining seats",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=800&width=600",
+  //     alt: "Birthday Celebration",
+  //     caption: "A birthday celebration in our main theatre",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=600&width=800",
+  //     alt: "Couples Movie Night",
+  //     caption: "Romantic movie night setup for couples",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=800&width=800",
+  //     alt: "Concession Stand",
+  //     caption: "Our fully stocked concession stand",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=600&width=800",
+  //     alt: "Corporate Event",
+  //     caption: "Corporate presentation in our largest theatre",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=800&width=600",
+  //     alt: "Kids Movie Party",
+  //     caption: "Special setup for children's movie parties",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=600&width=800",
+  //     alt: "Projection System",
+  //     caption: "Our state-of-the-art 4K projection system",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=800&width=800",
+  //     alt: "Sound System",
+  //     caption: "Dolby Atmos surround sound speakers",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=600&width=800",
+  //     alt: "VIP Lounge",
+  //     caption: "Exclusive VIP lounge for premium bookings",
+  //   },
+  //   {
+  //     src: "/placeholder.svg?height=800&width=600",
+  //     alt: "Anniversary Setup",
+  //     caption: "Special anniversary celebration setup",
+  //   },
+  // ]
 
   return (
     <div className="flex flex-col">
@@ -69,7 +72,7 @@ export default function GalleryPage() {
               Browse through our gallery to see the premium experiences we offer and get inspired for your next booking.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:gap-6">
+          {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:gap-6">
             {galleryImages.map((image, index) => (
               <div key={index} className="group relative overflow-hidden rounded-xl">
                 <div className="aspect-square sm:aspect-[4/3]">
@@ -86,7 +89,11 @@ export default function GalleryPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
+
+
+<CloudinaryGallery />
+
         </div>
       </section>
 
@@ -140,4 +147,9 @@ export default function GalleryPage() {
     </div>
   )
 }
+
+
+
+
+
 

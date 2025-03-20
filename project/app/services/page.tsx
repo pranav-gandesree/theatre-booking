@@ -9,29 +9,16 @@ import { ArrowRight, Check, Settings, Speaker, Tv } from "lucide-react"
 export default function ServicesPage() {
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      {/* <section className="relative h-[50vh] w-full overflow-hidden">
-        <Image
-          src="/placeholder.svg?height=800&width=1920"
-          alt="CineSuite Services"
-          fill
-          className="object-cover brightness-[0.6]"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-        <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">Our Services</h1>
-          <p className="max-w-xl text-lg text-white/90">
-            Discover our premium cinema and home theatre solutions tailored to your needs.
-          </p>
-        </div>
-      </section> */}
+
 
       {/* Services Overview */}
       <section className="py-16 md:py-24">
         <div className="container px-4 sm:px-6">
           <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Premium Cinema Experiences</h2>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                  Premium <span className="text-red-500">AV</span> Experiences
+                </h2>
+
             <p className="mx-auto max-w-2xl text-muted-foreground">
               From private theatre bookings to custom home installations, we offer comprehensive solutions for cinema
               enthusiasts.
@@ -108,7 +95,7 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              <div className="mt-16">
+              {/* <div className="mt-16">
                 <h3 className="mb-6 text-xl font-bold">Available Theatre Options</h3>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   <Card>
@@ -225,7 +212,147 @@ export default function ServicesPage() {
                     </CardFooter>
                   </Card>
                 </div>
-              </div>
+              </div> */}
+
+
+<div className="mt-16  text-white py-16">
+  <div className="container mx-auto px-4">
+    <h3 className="mb-10 text-3xl font-bold text-center">Available Theatre Options</h3>
+    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Standard Theatre */}
+      <Card className="bg-[#1a1c20] border border-[#333] rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+        <CardHeader>
+          <CardTitle className="text-white">Standard Theatre</CardTitle>
+          <CardDescription className="text-gray-400">Perfect for small groups</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-4 aspect-video overflow-hidden rounded-lg">
+            <Image
+              src="/placeholder.svg?height=400&width=600"
+              alt="Standard Theatre"
+              width={600}
+              height={400}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <ul className="space-y-2 text-sm text-gray-300">
+            <li className="flex items-center">
+              <Tv className="mr-2 h-4 w-4 text-blue-500" />
+              <span>4K Projection</span>
+            </li>
+            <li className="flex items-center">
+              <Speaker className="mr-2 h-4 w-4 text-blue-500" />
+              <span>7.1 Surround Sound</span>
+            </li>
+            <li className="flex items-center">
+              <Users className="mr-2 h-4 w-4 text-blue-500" />
+              <span>Up to 10 guests</span>
+            </li>
+          </ul>
+          <p className="mt-4 text-lg font-bold text-white">$150/hour</p>
+        </CardContent>
+        <CardFooter>
+          <Button
+            variant="outline"
+            className="w-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+            asChild
+          >
+            <Link href="/book-now">Book Now</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+
+      {/* Premium Theatre */}
+      <Card className="bg-[#1a1a1a] border border-[#333] rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+        <CardHeader>
+          <CardTitle className="text-white">Premium Theatre</CardTitle>
+          <CardDescription className="text-gray-400">Enhanced experience</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-4 aspect-video overflow-hidden rounded-lg">
+            <Image
+              src="/placeholder.svg?height=400&width=600"
+              alt="Premium Theatre"
+              width={600}
+              height={400}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <ul className="space-y-2 text-sm text-gray-300">
+            <li className="flex items-center">
+              <Tv className="mr-2 h-4 w-4 text-blue-500" />
+              <span>4K Laser Projection</span>
+            </li>
+            <li className="flex items-center">
+              <Speaker className="mr-2 h-4 w-4 text-blue-500" />
+              <span>Dolby Atmos Sound</span>
+            </li>
+            <li className="flex items-center">
+              <Users className="mr-2 h-4 w-4 text-blue-500" />
+              <span>Up to 15 guests</span>
+            </li>
+          </ul>
+          <p className="mt-4 text-lg font-bold text-white">$250/hour</p>
+        </CardContent>
+        <CardFooter>
+          <Button
+            variant="outline"
+            className="w-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+            asChild
+          >
+            <Link href="/book-now">Book Now</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+
+      {/* VIP Suite */}
+      <Card className="bg-[#1a1a1a] border border-[#333] rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+        <CardHeader>
+          <CardTitle className="text-white">VIP Suite</CardTitle>
+          <CardDescription className="text-gray-400">Ultimate luxury</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-4 aspect-video overflow-hidden rounded-lg">
+            <Image
+              src="/placeholder.svg?height=400&width=600"
+              alt="VIP Suite"
+              width={600}
+              height={400}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <ul className="space-y-2 text-sm text-gray-300">
+            <li className="flex items-center">
+              <Tv className="mr-2 h-4 w-4 text-blue-500" />
+              <span>8K Projection</span>
+            </li>
+            <li className="flex items-center">
+              <Speaker className="mr-2 h-4 w-4 text-blue-500" />
+              <span>Premium Dolby Atmos</span>
+            </li>
+            <li className="flex items-center">
+              <Users className="mr-2 h-4 w-4 text-blue-500" />
+              <span>Up to 8 guests with luxury recliners</span>
+            </li>
+          </ul>
+          <p className="mt-4 text-lg font-bold text-white">$350/hour</p>
+        </CardContent>
+        <CardFooter>
+          <Button
+            variant="outline"
+            className="w-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+            asChild
+          >
+            <Link href="/book-now">Book Now</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
+  </div>
+</div>
+
+
+
             </TabsContent>
 
             {/* Custom Home Setups Tab */}
@@ -569,7 +696,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Process Section */}
-      <section className="bg-muted/30 py-16 md:py-24">
+      {/* <section className="bg-muted/30 py-16 md:py-24">
         <div className="container px-4 sm:px-6">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Process</h2>
@@ -649,7 +776,84 @@ export default function ServicesPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+
+
+
+
+<section className="bg-muted/30 py-16 md:py-24">
+  <div className="container px-4 sm:px-6">
+    <div className="mb-12 text-center">
+      <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Process</h2>
+      <p className="mx-auto max-w-2xl text-muted-foreground">
+        We follow a comprehensive approach to ensure your cinema experience or installation exceeds expectations.
+      </p>
+    </div>
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+    
+      <div className="card bg-white shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:-translate-y-2">
+        <div className="card-body p-6 text-center">
+          <div className="flex items-center justify-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
+              1
+            </div>
+          </div>
+          <h3 className="mt-4 text-lg font-bold">Consultation</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            We begin with a detailed consultation to understand your needs, preferences, and budget.
+          </p>
+        </div>
+      </div>
+
+    
+      <div className="card bg-white shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:-translate-y-2">
+        <div className="card-body p-6 text-center">
+          <div className="flex items-center justify-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
+              2
+            </div>
+          </div>
+          <h3 className="mt-4 text-lg font-bold">Design</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Our experts create a custom design plan tailored to your space and requirements.
+          </p>
+        </div>
+      </div>
+
+      
+      <div className="card bg-white shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:-translate-y-2">
+        <div className="card-body p-6 text-center">
+          <div className="flex items-center justify-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
+              3
+            </div>
+          </div>
+          <h3 className="mt-4 text-lg font-bold">Implementation</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Our skilled technicians handle the installation with meticulous attention to detail.
+          </p>
+        </div>
+      </div>
+
+     
+      <div className="card bg-white shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:-translate-y-2">
+        <div className="card-body p-6 text-center">
+          <div className="flex items-center justify-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
+              4
+            </div>
+          </div>
+          <h3 className="mt-4 text-lg font-bold">Calibration & Support</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            We fine-tune your system for optimal performance and provide ongoing support.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
     </div>

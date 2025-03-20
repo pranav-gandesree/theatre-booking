@@ -58,21 +58,7 @@ export default function MyBookingsPage() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] w-full overflow-hidden">
-        <Image
-          src="/placeholder.svg?height=800&width=1920"
-          alt="My Bookings"
-          fill
-          className="object-cover brightness-[0.6]"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-        <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">My Bookings</h1>
-          <p className="max-w-xl text-lg text-white/90">View and manage your yovanAV bookings in one place.</p>
-        </div>
-      </section>
+    
 
       {/* Bookings Section */}
       <section className="py-16 md:py-24">
@@ -313,30 +299,7 @@ export default function MyBookingsPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative py-16 md:py-24">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/placeholder.svg?height=800&width=1920"
-            alt="Theatre Background"
-            fill
-            className="object-cover brightness-[0.3]"
-          />
-        </div>
-        <div className="container relative z-10 px-4 sm:px-6">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Ready for Your Next Cinema Experience?
-            </h2>
-            <p className="mb-8 text-lg text-white/80">
-              Book your next private theatre experience and create more unforgettable memories.
-            </p>
-            <Button size="lg" className="px-8" asChild>
-              <Link href="/book-now">Book Now</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+   
     </div>
   )
 }

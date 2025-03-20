@@ -3,9 +3,10 @@ import { Film, Mail, MapPin, Phone } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-background">
+    // <footer className="border-t bg-background">
+    <footer className="border-t bg-[#1a1c20]">
       <div className="container px-4 py-12 sm:px-6 lg:py-16">
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4 text-gray-200">
           <div>
             <div className="flex items-center space-x-2">
               <Film className="h-6 w-6 text-primary" />
