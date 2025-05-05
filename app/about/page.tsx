@@ -1,9 +1,9 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Award, Clock, Film, Star, Users } from "lucide-react"
-import about from "../../public/about.jpg"
-import about2 from "../../public/about2.jpg"
 
 export default function AboutPage() {
   return (
@@ -11,7 +11,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative h-[100vh] w-full overflow-hidden">
         <Image
-          src={about}
+          src="/about.jpg"
           alt="About yovanAV"
           fill
           className="object-cover brightness-[0.6]"
@@ -56,7 +56,7 @@ export default function AboutPage() {
             </div>
             <div className="relative h-[400px] overflow-hidden rounded-xl md:h-[500px]">
               <Image
-                src={about2}
+                src="/about2.jpg"
                 alt="yovanAV Founders"
                 fill
                 className="object-cover"
@@ -66,67 +66,37 @@ export default function AboutPage() {
         </div>
       </section>
 
-      
-
-
-<section className="bg-gradient-to-br from-[#0d0f12] to-[#1a1c20] py-16 md:py-24">
-  <div className="container px-4 sm:px-6">
-    <div className="mb-12 text-center">
-      <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Our Values</h2>
-      <p className="mx-auto max-w-2xl text-gray-400">
-        At yovanAV, we're guided by a commitment to excellence and a passion for creating unforgettable
-        experiences.
-      </p>
-    </div>
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-     
-      <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
-          <Film className="h-6 w-6" />
+      {/* Our Values */}
+      <section className="bg-gradient-to-br from-[#0d0f12] to-[#1a1c20] py-16 md:py-24">
+        <div className="container px-4 sm:px-6">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Our Values</h2>
+            <p className="mx-auto max-w-2xl text-gray-400">
+              At yovanAV, we're guided by a commitment to excellence and a passion for creating unforgettable
+              experiences.
+            </p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { Icon: Film, title: "Quality", desc: "We never compromise on the quality of our equipment, service, or overall experience." },
+              { Icon: Users, title: "Personalization", desc: "We tailor every experience to meet the unique needs and preferences of our customers." },
+              { Icon: Star, title: "Innovation", desc: "We continuously seek new ways to enhance our offerings and stay ahead of industry trends." },
+              { Icon: Award, title: "Excellence", desc: "We strive for excellence in every aspect of our business, from customer service to technical performance." }
+            ].map(({ Icon, title, desc }, i) => (
+              <div
+                key={i}
+                className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl"
+              >
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold text-white">{title}</h3>
+                <p className="text-gray-400">{desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <h3 className="mb-2 text-xl font-semibold text-white">Quality</h3>
-        <p className="text-gray-400">
-          We never compromise on the quality of our equipment, service, or overall experience.
-        </p>
-      </div>
-
-  
-      <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
-          <Users className="h-6 w-6" />
-        </div>
-        <h3 className="mb-2 text-xl font-semibold text-white">Personalization</h3>
-        <p className="text-gray-400">
-          We tailor every experience to meet the unique needs and preferences of our customers.
-        </p>
-      </div>
-
-      
-      <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
-          <Star className="h-6 w-6" />
-        </div>
-        <h3 className="mb-2 text-xl font-semibold text-white">Innovation</h3>
-        <p className="text-gray-400">
-          We continuously seek new ways to enhance our offerings and stay ahead of industry trends.
-        </p>
-      </div>
-
-     
-      <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
-          <Award className="h-6 w-6" />
-        </div>
-        <h3 className="mb-2 text-xl font-semibold text-white">Excellence</h3>
-        <p className="text-gray-400">
-          We strive for excellence in every aspect of our business, from customer service to technical
-          performance.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Why Choose Us */}
       <section className="py-16 md:py-24">
@@ -134,42 +104,20 @@ export default function AboutPage() {
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
             <div className="order-2 md:order-1">
               <div className="grid gap-6 sm:grid-cols-2">
-                <div className="rounded-xl bg-white p-6 shadow-md">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Film className="h-6 w-6" />
+                {[
+                  { Icon: Film, title: "Premium Equipment", desc: "4K projectors, Dolby Atmos sound systems, and comfortable seating." },
+                  { Icon: Users, title: "Private Experience", desc: "Exclusive use of the space for you and your guests only." },
+                  { Icon: Clock, title: "Flexible Scheduling", desc: "Book for as little as 2 hours or for a full-day event." },
+                  { Icon: Star, title: "Concierge Service", desc: "Dedicated staff to assist with setup and throughout your experience." },
+                ].map(({ Icon, title, desc }, i) => (
+                  <div key={i} className="rounded-xl bg-white p-6 shadow-md">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="mb-2 text-lg font-bold">{title}</h3>
+                    <p className="text-sm text-muted-foreground">{desc}</p>
                   </div>
-                  <h3 className="mb-2 text-lg font-bold">Premium Equipment</h3>
-                  <p className="text-sm text-muted-foreground">
-                    4K projectors, Dolby Atmos sound systems, and comfortable seating.
-                  </p>
-                </div>
-                <div className="rounded-xl bg-white p-6 shadow-md">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Users className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 text-lg font-bold">Private Experience</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Exclusive use of the space for you and your guests only.
-                  </p>
-                </div>
-                <div className="rounded-xl bg-white p-6 shadow-md">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Clock className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 text-lg font-bold">Flexible Scheduling</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Book for as little as 2 hours or for a full-day event.
-                  </p>
-                </div>
-                <div className="rounded-xl bg-white p-6 shadow-md">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Star className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 text-lg font-bold">Concierge Service</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Dedicated staff to assist with setup and throughout your experience.
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
             <div className="order-1 md:order-2">
@@ -197,104 +145,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* Team Section */}
-      {/* <section className="bg-muted/30 py-16 md:py-24">
-        <div className="container px-4 sm:px-6">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Meet Our Team</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground">
-              The passionate individuals behind yovanAV who work tirelessly to create unforgettable experiences.
-            </p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-6 aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src="/placeholder.svg?height=400&width=400"
-                  alt="Team Member"
-                  width={400}
-                  height={400}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <h3 className="mb-1 text-xl font-bold">Alex Johnson</h3>
-              <p className="mb-4 text-sm text-primary">Founder & CEO</p>
-              <p className="text-muted-foreground">
-                Film enthusiast with over 15 years of experience in the entertainment industry.
-              </p>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-6 aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src="/placeholder.svg?height=400&width=400"
-                  alt="Team Member"
-                  width={400}
-                  height={400}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <h3 className="mb-1 text-xl font-bold">Samantha Lee</h3>
-              <p className="mb-4 text-sm text-primary">Technical Director</p>
-              <p className="text-muted-foreground">
-                Audio-visual expert who ensures every screening meets our high technical standards.
-              </p>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-6 aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src="/placeholder.svg?height=400&width=400"
-                  alt="Team Member"
-                  width={400}
-                  height={400}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <h3 className="mb-1 text-xl font-bold">Michael Chen</h3>
-              <p className="mb-4 text-sm text-primary">Customer Experience Manager</p>
-              <p className="text-muted-foreground">
-                Dedicated to ensuring every guest receives personalized, exceptional service.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* CTA Section */}
-      {/* <section className="relative py-16 md:py-24">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/placeholder.svg?height=800&width=1920"
-            alt="Theatre Background"
-            fill
-            className="object-cover brightness-[0.3]"
-          />
-        </div>
-        <div className="container relative z-10 px-4 sm:px-6">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Ready to Experience yovanAV?
-            </h2>
-            <p className="mb-8 text-lg text-white/80">
-              Book your private cinema experience today and see why our customers keep coming back.
-            </p>
-            <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0">
-              <Button size="lg" className="px-8" asChild>
-                <Link href="/book-now">Book Now</Link>
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
-                asChild
-              >
-                <Link href="/contact">Contact Us</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </div>
   )
 }
-
