@@ -9,13 +9,20 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden">
-        <Image
-          src="/main.jpg"
-          alt="Home Theatre Experience"
-          fill
-          className="object-cover brightness-[0.8]"
-          priority
-        />
+        {/* Using a placeholder image with proper error handling */}
+        <div className="relative h-full w-full">
+          <Image
+            src="/main.jpg"
+            alt="Home Theatre Experience"
+            fill
+            className="object-cover brightness-[0.8]"
+            priority
+            onError={(e) => {
+              // Fallback if the image fails to load
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
         <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
           <div className="max-w-2xl">
@@ -100,14 +107,21 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-20">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/home2.jpg"
-            alt="Theatre Background"
-            fill
-            className="object-cover brightness-[0.8]"
-          />
+      <section className="relative py-20 bg-gray-900">
+        {/* Using a div container to manage the background image */}
+        <div className="relative h-full w-full">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/home2.jpg"
+              alt="Theatre Background"
+              fill
+              className="object-cover brightness-[0.8]"
+              onError={(e) => {
+                // Fallback if the image fails to load
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
         </div>
         <div className="container relative z-10 px-4 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
