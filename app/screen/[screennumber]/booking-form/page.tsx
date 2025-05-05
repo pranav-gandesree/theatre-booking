@@ -15,6 +15,12 @@ import BookingSummaryStep from "@/components/booking/BookingSummaryStep"
 import ProgressIndicator from "@/components/booking/ProgressIndicator"
 import { useData } from "@/context/DataContext"
 import { supabase } from "@/lib/supabase"
+import { toast } from "@/components/ui/use-toast";
+
+
+
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { getScreenDetails } from "./action"
 
 // Define interfaces for our data types
 interface BookingData {
@@ -30,7 +36,7 @@ interface BookingData {
   cake: string[]
   add_ons: string[]
   total_price: number
-  screen_name: string
+  screen: string
   date: string
   balance_amount: number
   time_slots: string
@@ -58,7 +64,7 @@ export default function BookingFormPage() {
     cake: [],
     add_ons: [],
     total_price: searchParams.get('price') ? parseFloat(searchParams.get('price')!) : 0,
-    screen_name: `Screen ${params.screennumber || 1}`,
+    screen: `Screen ${params.screennumber || 1}`,
     date: searchParams.get('date') || "",
     balance_amount: 0,
     time_slots: searchParams.get('time') || "",
@@ -85,60 +91,86 @@ export default function BookingFormPage() {
   const [selectedAddons, setSelectedAddons] = useState<string[]>([])
   const [termsAccepted, setTermsAccepted] = useState(false)
 
+  const [screenDetails, setScreenDetails] = useState<{ name: string; capacity: number } | null>(null);
+  const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>([]);
+  const [bookedTimeSlots, setBookedTimeSlots] = useState<string[]>([]);
+
   // Load initial URL/session data
   useEffect(() => {
     const time = searchParams.get('time')
-    const date = searchParams.get('date')
-    const screenId = parseInt(params.screennumber as string)
+    const date = searchParams.get('date') || new Date().toISOString().split('T')[0]
+    const screenId = params.screennumber as string
     const price = searchParams.get('price') ? parseFloat(searchParams.get('price')!) : 0
 
-    const initialBookingData: BookingData = {
-      booking_name: "",
-      total_persons: 1,
-      email_id: "",
-      number: "",
-      occasion: "",
-      first_person_name: "",
-      second_person_name: "",
-      cake: [],
-      add_ons: [],
-      total_price: price,
-      screen_name: `Screen ${screenId || 1}`,
-      date: date || "",
-      balance_amount: 0,
-      time_slots: time || "",
-    }
+    // First fetch screen details
+    const fetchScreenDetails = async () => {
+      console.log("screen id is", screenId)
+      const { screen } = await getScreenDetails(screenId);
+      console.log("screen details are", screen)
 
-    const stored = sessionStorage.getItem("bookingData")
-    if (stored) {
-      const parsed = JSON.parse(stored) as BookingData
-      if (
-        parsed.screen_name === initialBookingData.screen_name &&
-        parsed.time_slots === initialBookingData.time_slots &&
-        parsed.date === initialBookingData.date
-      ) {
-        setBookingData(parsed)
-        setFormData({
-          name: parsed.first_person_name,
-          persons: parsed.total_persons.toString(),
-          email: parsed.email_id,
-          number: parsed.number,
-          wantDecoration: "",
-        })
-        if (parsed.occasion) setSelectedOccasion(parsed.occasion)
-        if (parsed.first_person_name || parsed.second_person_name) {
-          setOccasionNames([parsed.first_person_name, parsed.second_person_name])
+      if (screen) {
+        setScreenDetails(screen);
+        console.log("screen details areinside", screenDetails)
+
+        const initialBookingData: BookingData = {
+          booking_name: "",
+          total_persons: 1,
+          email_id: "",
+          number: "",
+          occasion: "",
+          first_person_name: "",
+          second_person_name: "",
+          cake: [],
+          add_ons: [],
+          total_price: price,
+          screen: screen.name, // Use actual screen name from DB
+          date: date,
+          balance_amount: 0,
+          time_slots: time || "",
         }
-        if (Array.isArray(parsed.cake)) setSelectedCakes(parsed.cake.map(String))
-        if (Array.isArray(parsed.add_ons)) setSelectedAddons(parsed.add_ons.map(String))
-        return
+
+        const stored = sessionStorage.getItem("bookingData")
+        if (stored) {
+          const parsed = JSON.parse(stored) as BookingData
+          if (
+            parsed.screen === screen.name &&
+            parsed.time_slots === time &&
+            parsed.date === date
+          ) {
+            setBookingData(parsed)
+            setFormData({
+              name: parsed.first_person_name,
+              persons: parsed.total_persons.toString(),
+              email: parsed.email_id,
+              number: parsed.number,
+              wantDecoration: "",
+            })
+            if (parsed.occasion) setSelectedOccasion(parsed.occasion)
+            if (parsed.first_person_name || parsed.second_person_name) {
+              setOccasionNames([parsed.first_person_name, parsed.second_person_name])
+            }
+            if (Array.isArray(parsed.cake)) setSelectedCakes(parsed.cake.map(String))
+            if (Array.isArray(parsed.add_ons)) setSelectedAddons(parsed.add_ons.map(String))
+            return
+          }
+        }
+
+        setBookingData(initialBookingData)
+        sessionStorage.setItem("bookingData", JSON.stringify(initialBookingData))
       }
     }
 
-    // fallback: use URL
-    setBookingData(initialBookingData)
-    sessionStorage.setItem("bookingData", JSON.stringify(initialBookingData))
+    fetchScreenDetails();
   }, [params.screennumber, searchParams])
+
+
+  
+
+
+  // Generate persons options based on screen capacity
+  const personsOptions = screenDetails?.capacity 
+    ? Array.from({ length: screenDetails.capacity }, (_, i) => i + 1)
+    : [1];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -179,12 +211,10 @@ export default function BookingFormPage() {
       updated.first_person_name = names[0] || ""
       updated.second_person_name = names[1] || ""
     } else if (currentStep === 3) {
-      const cakeObjs = cakes.filter((c) => selectedCakes.includes(c.name))
-      const addonObjs = addons.filter((a) => selectedAddons.includes(a.name))
-      const base = updated.total_price
-      const cakesAmt = cakeObjs.reduce((sum, c) => sum + c.price, 0)
-      const addonsAmt = addonObjs.reduce((sum, a) => sum + a.price, 0)
-      const total = base + cakesAmt + addonsAmt
+      const basePrice = searchParams.get('price') ? parseFloat(searchParams.get('price')!) : 0
+      const cakesAmt = cakes.filter(c => selectedCakes.includes(c.name)).reduce((sum, c) => sum + c.price, 0)
+      const addonsAmt = addons.filter(a => selectedAddons.includes(a.name)).reduce((sum, a) => sum + a.price, 0)
+      const total = basePrice + cakesAmt + addonsAmt
       const balance = total - 1000
       updated = {
         ...updated,
@@ -214,21 +244,29 @@ export default function BookingFormPage() {
         cake: selectedCakes,
         add_ons: selectedAddons,
         date: bookingData.date,
-        screen_name: bookingData.screen_name,
         time_slots: bookingData.time_slots,
         total_price: bookingData.total_price,
         balance_amount: bookingData.balance_amount,
       }
-      console.log("payload from payloadis",payload)
+      console.log("payload from payloadisfrom creatingg",payload)
+
       const { error } = await supabase.from("bookings").insert([payload])
       if (error) throw error
       sessionStorage.removeItem("bookingData")
-      alert("Booking confirmed successfully!")
+      toast({
+        title: "🎉 Booking Confirmed",
+        description: "Your booking has been saved successfully.",
+        variant: "default",
+      });
       router.push("/")
 
     } catch (err) {
       console.error(err)
-      alert("Error saving booking.")
+      toast({
+        title: "❌ Booking Failed",
+        description: "There was an error saving your booking. Please try again.",
+        variant: "destructive",
+      });
     }
   }
 
@@ -255,7 +293,7 @@ export default function BookingFormPage() {
     return true
   }
 
-  const hasReq = bookingData.screen_name && bookingData.date && bookingData.time_slots
+  const hasReq = bookingData.screen && bookingData.date && bookingData.time_slots
   if (!hasReq) {
     return (
       <div className="container text-center py-8">
@@ -277,10 +315,94 @@ export default function BookingFormPage() {
   const selCake = cakes.find((c) => selectedCakes.includes(c.name))
   const selAddons = addons.filter((a) => selectedAddons.includes(a.name))
 
+  // Update the UserDetails component to use Select for persons
+  const renderPersonsSelect = () => (
+    <div className="space-y-2">
+      <label htmlFor="persons" className="text-sm font-medium">
+        Number of Persons
+      </label>
+      <Select
+        name="persons"
+        value={formData.persons}
+        onValueChange={(value) => setFormData(prev => ({ ...prev, persons: value }))}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select number of persons" />
+        </SelectTrigger>
+        <SelectContent>
+          {personsOptions.map((num) => (
+            <SelectItem key={num} value={num.toString()}>
+              {num} {num === 1 ? 'Person' : 'Persons'}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+
+  const handleSelectChange = (name: string, value: string) => {
+    if (name === "persons") {
+      setFormData(prev => ({ ...prev, persons: value }));
+    } else if (name === "time_slots") {
+      setBookingData(prev => ({ ...prev, time_slots: value }));
+    }
+  };
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <UserDetails
+            bookingData={bookingData}
+            formData={formData}
+            handleInputChange={handleInputChange}
+            handleSelectChange={handleSelectChange}
+            personsOptions={personsOptions}
+            availableTimeSlots={availableTimeSlots}
+          />
+        )
+      case 2:
+        return (
+          <OccasionSelector
+            selectedOccasion={selectedOccasion}
+            occasionNames={occasionNames}
+            handleOccasionSelect={handleOccasionSelect}
+            handleNameChange={handleNameChange}
+          />
+        )
+      case 3:
+        return (
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Select Extras</h2>
+            <CakeSelector selectedCakes={selectedCakes} handleCakeSelect={handleCakeSelect} />
+            <AddonsSelector
+              selectedAddons={selectedAddons}
+              handleAddonToggle={handleAddonToggle}
+            />
+          </div>
+        )
+      case 4:
+        return (
+          <BookingSummaryStep
+            bookingData={bookingData}
+            formData={formData}
+            selectedOccasionObj={selectedOccObj}
+            occasionNames={occasionNames}
+            selectedCakeObj={selCake}
+            selectedAddonObjs={selAddons}
+            termsAccepted={termsAccepted}
+            handleTermsChange={handleTermsChange}
+          />
+        )
+      default:
+        return null;
+    }
+  }
+
   return (
     <div className="container px-4 py-8">
       <h1 className="text-2xl font-bold text-center mb-6">
-        Book {bookingData.screen_name} on {formatDate(bookingData.date)} @ {bookingData.time_slots}
+        Book {bookingData.screen} on {formatDate(bookingData.date)} @ {bookingData.time_slots}
       </h1>
 
       <Button variant="ghost" onClick={handleBack} className="mb-6">
@@ -292,45 +414,7 @@ export default function BookingFormPage() {
 
       <div className="md:grid md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
-          {currentStep === 1 && (
-            <UserDetails formData={formData} handleInputChange={handleInputChange} bookingData={{
-              screen_name: "",
-              date: "",
-              time_slots: ""
-            }} handleRadioChange={function (value: string): void {
-              throw new Error("Function not implemented.")
-            } } />
-          )}
-          {currentStep === 2 && (
-            <OccasionSelector
-              selectedOccasion={selectedOccasion}
-              occasionNames={occasionNames}
-              handleOccasionSelect={handleOccasionSelect}
-              handleNameChange={handleNameChange}
-            />
-          )}
-          {currentStep === 3 && (
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Select Extras</h2>
-              <CakeSelector selectedCakes={selectedCakes} handleCakeSelect={handleCakeSelect} />
-              <AddonsSelector
-                selectedAddons={selectedAddons}
-                handleAddonToggle={handleAddonToggle}
-              />
-            </div>
-          )}
-          {currentStep === 4 && (
-            <BookingSummaryStep
-              bookingData={bookingData}
-              formData={formData}
-              selectedOccasionObj={selectedOccObj}
-              occasionNames={occasionNames}
-              selectedCakeObj={selCake}
-              selectedAddonObjs={selAddons}
-              termsAccepted={termsAccepted}
-              handleTermsChange={handleTermsChange}
-            />
-          )}
+          {renderCurrentStep()}
 
           <div className="flex justify-between mt-8">
             {currentStep > 1 ? (
@@ -354,8 +438,8 @@ export default function BookingFormPage() {
 
         <div>
           <BookingSummary
-            screenName={bookingData.screen_name}
-            screenPrice={bookingData.total_price}
+            screenName={bookingData.screen}
+            screenPrice={searchParams.get('price') ? parseFloat(searchParams.get('price')!) : 0}
             date={formatDate(bookingData.date)}
             time={bookingData.time_slots}
             customerName={formData.name}
@@ -364,9 +448,18 @@ export default function BookingFormPage() {
             cakes={cakes.filter(c => selectedCakes.includes(c.name)).map(c => ({ name: c.name, price: c.price }))}
             addons={addons.filter(a => selectedAddons.includes(a.name)).map(a => ({ name: a.name, price: a.price }))}
             showTerms={currentStep === 4}
-            totalAmount={bookingData.total_price}
+            totalAmount={
+              (searchParams.get('price') ? parseFloat(searchParams.get('price')!) : 0) + 
+              cakes.filter(c => selectedCakes.includes(c.name)).reduce((sum, c) => sum + c.price, 0) +
+              addons.filter(a => selectedAddons.includes(a.name)).reduce((sum, a) => sum + a.price, 0)
+            }
             advanceAmount={1000}
-            balanceAmount={bookingData.balance_amount}
+            balanceAmount={
+              (searchParams.get('price') ? parseFloat(searchParams.get('price')!) : 0) + 
+              cakes.filter(c => selectedCakes.includes(c.name)).reduce((sum, c) => sum + c.price, 0) +
+              addons.filter(a => selectedAddons.includes(a.name)).reduce((sum, a) => sum + a.price, 0) - 
+              1000
+            }
           />
           <ProgressIndicator currentStep={currentStep} totalSteps={steps.length} />
         </div>

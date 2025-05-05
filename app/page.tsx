@@ -143,13 +143,7 @@ export default function Home() {
                 "We celebrated our anniversary here and it was magical. The sound quality and screen size made us feel
                 like we were in our own private cinema!"
               </p>
-              <div className="flex items-center space-x-4">
-                <div className="h-10 w-10 rounded-full bg-muted"></div>
-                <div>
-                  <p className="font-medium">Sarah & Michael</p>
-                  <p className="text-sm text-muted-foreground">Anniversary Celebration</p>
-                </div>
-              </div>
+
             </div>
             <div className="rounded-xl bg-white p-6 shadow">
               <div className="mb-4 flex items-center space-x-2">
@@ -160,13 +154,7 @@ export default function Home() {
                 "My son's birthday party was a hit! All the kids loved watching their favorite movie on the big screen
                 with surround sound."
               </p>
-              <div className="flex items-center space-x-4">
-                <div className="h-10 w-10 rounded-full bg-muted"></div>
-                <div>
-                  <p className="font-medium">David Thompson</p>
-                  <p className="text-sm text-muted-foreground">Birthday Party</p>
-                </div>
-              </div>
+
             </div>
             <div className="rounded-xl bg-white p-6 shadow">
               <div className="mb-4 flex items-center space-x-2">
@@ -177,13 +165,7 @@ export default function Home() {
                 "We hosted a corporate event here and it exceeded our expectations. The staff was professional and the
                 setup was perfect."
               </p>
-              <div className="flex items-center space-x-4">
-                <div className="h-10 w-10 rounded-full bg-muted"></div>
-                <div>
-                  <p className="font-medium">Jennifer Lee</p>
-                  <p className="text-sm text-muted-foreground">Corporate Event</p>
-                </div>
-              </div>
+             
             </div>
           </div>
         </div>

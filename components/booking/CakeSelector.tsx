@@ -15,6 +15,10 @@ interface CakeSelectorProps {
 export default function CakeSelector({ selectedCakes, handleCakeSelect }: CakeSelectorProps) {
   const { cakes } = useData()
 
+  useEffect(()=>{
+    console.log("cakes dats is", cakes)
+  },[cakes])
+
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Select Cakes</h2>

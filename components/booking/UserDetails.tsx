@@ -6,10 +6,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { CalendarDays, Clock, MapPin } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface UserDetailsProps {
   bookingData: {
-    screen_name: string
+    screen: string
     date: string
     time_slots: string
   }
@@ -18,17 +19,20 @@ interface UserDetailsProps {
     persons: string
     number: string
     email: string
-    wantDecoration: string
   }
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleRadioChange: (value: string) => void
+  handleSelectChange: (name: string, value: string) => void
+  personsOptions: number[]
+  availableTimeSlots: string[]
 }
 
 export default function UserDetails({
   bookingData,
   formData,
   handleInputChange,
-  handleRadioChange,
+  handleSelectChange,
+  personsOptions,
+  availableTimeSlots,
 }: UserDetailsProps) {
   return (
     <div className="space-y-6">
@@ -49,18 +53,25 @@ export default function UserDetails({
 
         <div>
           <Label htmlFor="persons">Number of Persons</Label>
-          <Input
-            id="persons"
+          <Select
             name="persons"
-            type="number"
-            min="1"
             value={formData.persons}
-            onChange={handleInputChange}
-            placeholder="Enter number of persons"
-            required
-          />
-          
+            onValueChange={(value) => handleSelectChange("persons", value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select number of persons" />
+            </SelectTrigger>
+            <SelectContent>
+              {personsOptions.map((num) => (
+                <SelectItem key={num} value={num.toString()}>
+                  {num} {num === 1 ? 'Person' : 'Persons'}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
+
+    
 
         <div>
           <Label htmlFor="whatsapp">WhatsApp Number</Label>
@@ -88,8 +99,6 @@ export default function UserDetails({
           />
         </div>
       </div>
-
-      
     </div>
   )
 }

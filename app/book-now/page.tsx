@@ -1,5 +1,3 @@
-
-
 "use client"
 
 import { useState, useEffect } from "react"
@@ -15,12 +13,35 @@ import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 import main from "../../public/main.jpg"
 import { useRouter } from "next/navigation"
+import { GetBookingsByDate } from "@/actions/GetBookings"
+
 
 export default function BookNowPage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedSlots, setSelectedSlots] = useState<{ [key: number]: string | null }>({});
   const router = useRouter()
   const [screens, setScreens] = useState<Screen[]>([])
+  const [bookedSlots, setBookedSlots] = useState<Array<{ screen: string, time_slots: string, date: string }>>([]);
+
+  useEffect(()=>{
+    if (selectedDate) {
+      const fetchBookings = async () => {
+        const result = await GetBookingsByDate(selectedDate);
+      
+        if (result.error) {
+          console.error('Failed to fetch:', result.error);
+        } else {
+          setBookedSlots(result.bookings || []);
+          console.log('Bookings that are booked are ', result.bookings);
+        }
+      };
+      
+      fetchBookings();
+    }
+
+  
+  }, [selectedDate])
+
 
   
   interface Screen {
@@ -66,8 +87,6 @@ export default function BookNowPage() {
     
     router.push(`/screen/${screenId}/booking-form?time=${encodeURIComponent(timeSlot)}&date=${encodeURIComponent(format(selectedDate, "yyyy-MM-dd"))}&price=${screens[screenId - 1].price}`);
   };
-
-
 
 
 
@@ -137,6 +156,7 @@ export default function BookNowPage() {
                     onSelectSlot={(slot) => handleSelectSlot(screen.id, slot)}
                     onBook={() => handleBooking(screen.id)}
                     selectedDate={selectedDate ? format(selectedDate, "MMMM dd, yyyy") : "Select a date"}
+                    bookedSlots={bookedSlots}
                   />
                 ))}
               </div>
@@ -171,6 +191,7 @@ function ScreenCard({
   onSelectSlot,
   onBook,
   selectedDate,
+  bookedSlots,
 }: {
   screen: any;
   timeSlots: string[];
@@ -178,7 +199,32 @@ function ScreenCard({
   onSelectSlot: (slot: string) => void;
   onBook: () => void;
   selectedDate: string;
+  bookedSlots: Array<{ screen: string, time_slots: string, date: string }>;
 }) {
+  const isSlotBooked = (slot: string) => {
+    return bookedSlots.some(booking => 
+      booking.screen.toLowerCase() === screen.name.toLowerCase() && 
+      booking.time_slots === slot
+    );
+  };
+
+  const isPastSlot = (slot: string) => {
+    // Only check for today's date
+    const today = new Date();
+    const selectedDateObj = new Date(selectedDate);
+    
+    if (selectedDateObj.toDateString() !== today.toDateString()) {
+      return false;
+    }
+
+    const [, endTime] = slot.split(" - ");
+    const [hours, minutes] = endTime.split(":").map(Number);
+    const slotEndTime = new Date();
+    slotEndTime.setHours(hours, minutes, 0, 0);
+
+    return today > slotEndTime;
+  };
+
   return (
     <Card className="overflow-hidden">
       <CardHeader className="pb-3">
@@ -198,20 +244,28 @@ function ScreenCard({
             {timeSlots.map((slot) => {
               const available = screen.availability?.[slot] ?? 8;
               const isSelected = selectedSlot === slot;
+              const isBooked = isSlotBooked(slot);
+              const isPast = isPastSlot(slot);
 
               return (
                 <div
                   key={slot}
                   className={`p-2 rounded-md border text-center ${
-                    available === 0
+                    isBooked || available === 0 || isPast
                       ? "bg-muted/50 text-muted-foreground cursor-not-allowed"
                       : isSelected
                       ? "bg-primary text-white border-primary"
                       : "hover:border-primary cursor-pointer"
                   }`}
-                  onClick={() => available > 0 && onSelectSlot(slot)}
+                  onClick={() => !isBooked && !isPast && available > 0 && onSelectSlot(slot)}
                 >
                   <div className="text-sm font-medium">{formatTimeRange(slot)}</div>
+                  {isBooked && (
+                    <div className="text-xs text-red-500 mt-1">Already Booked</div>
+                  )}
+                  {isPast && !isBooked && (
+                    <div className="text-xs text-gray-500 mt-1">Time Passed</div>
+                  )}
                 </div>
               );
             })}

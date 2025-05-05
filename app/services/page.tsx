@@ -35,9 +35,9 @@ export default function ServicesPage() {
             {/* Private Theatres Tab */}
             <TabsContent value="private-theatres" className="mt-8">
               <div className="grid gap-8 md:grid-cols-2 md:items-center">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
                   <Image
-                    src="/placeholder.svg?height=800&width=1000"
+                    src="https://res.cloudinary.com/dawavjsrp/image/upload/v1746445156/IMG-20250426-WA0015_bpazbm.jpg"
                     alt="Private Theatre"
                     fill
                     className="object-cover"
@@ -95,135 +95,16 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              {/* <div className="mt-16">
-                <h3 className="mb-6 text-xl font-bold">Available Theatre Options</h3>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Standard Theatre</CardTitle>
-                      <CardDescription>Perfect for small groups</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-4 aspect-video overflow-hidden rounded-lg">
-                        <Image
-                          src="/placeholder.svg?height=400&width=600"
-                          alt="Standard Theatre"
-                          width={600}
-                          height={400}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                      <ul className="space-y-2 text-sm">
-                        <li className="flex items-center">
-                          <Tv className="mr-2 h-4 w-4 text-primary" />
-                          <span>4K Projection</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Speaker className="mr-2 h-4 w-4 text-primary" />
-                          <span>7.1 Surround Sound</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Users className="mr-2 h-4 w-4 text-primary" />
-                          <span>Up to 10 guests</span>
-                        </li>
-                      </ul>
-                      <p className="mt-4 text-lg font-bold">$150/hour</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full" asChild>
-                        <Link href="/book-now">Book Now</Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
 
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Premium Theatre</CardTitle>
-                      <CardDescription>Enhanced experience</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-4 aspect-video overflow-hidden rounded-lg">
-                        <Image
-                          src="/placeholder.svg?height=400&width=600"
-                          alt="Premium Theatre"
-                          width={600}
-                          height={400}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                      <ul className="space-y-2 text-sm">
-                        <li className="flex items-center">
-                          <Tv className="mr-2 h-4 w-4 text-primary" />
-                          <span>4K Laser Projection</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Speaker className="mr-2 h-4 w-4 text-primary" />
-                          <span>Dolby Atmos Sound</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Users className="mr-2 h-4 w-4 text-primary" />
-                          <span>Up to 15 guests</span>
-                        </li>
-                      </ul>
-                      <p className="mt-4 text-lg font-bold">$250/hour</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full" asChild>
-                        <Link href="/book-now">Book Now</Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>VIP Suite</CardTitle>
-                      <CardDescription>Ultimate luxury</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-4 aspect-video overflow-hidden rounded-lg">
-                        <Image
-                          src="/placeholder.svg?height=400&width=600"
-                          alt="VIP Suite"
-                          width={600}
-                          height={400}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                      <ul className="space-y-2 text-sm">
-                        <li className="flex items-center">
-                          <Tv className="mr-2 h-4 w-4 text-primary" />
-                          <span>8K Projection</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Speaker className="mr-2 h-4 w-4 text-primary" />
-                          <span>Premium Dolby Atmos</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Users className="mr-2 h-4 w-4 text-primary" />
-                          <span>Up to 8 guests with luxury recliners</span>
-                        </li>
-                      </ul>
-                      <p className="mt-4 text-lg font-bold">$350/hour</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full" asChild>
-                        <Link href="/book-now">Book Now</Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </div>
-              </div> */}
-
-
-<div className="mt-16  text-white py-16">
+<div className="mt-16  text-black py-16">
   <div className="container mx-auto px-4">
     <h3 className="mb-10 text-3xl font-bold text-center">Available Theatre Options</h3>
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {/* Standard Theatre */}
-      <Card className="bg-[#1a1c20] border border-[#333] rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+      <Card className=" border border-primary rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
         <CardHeader>
-          <CardTitle className="text-white">Standard Theatre</CardTitle>
-          <CardDescription className="text-gray-400">Perfect for small groups</CardDescription>
+          <CardTitle className="text-black">Standard Theatre</CardTitle>
+          <CardDescription className="text-gray-800">Perfect for small groups</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="mb-4 aspect-video overflow-hidden rounded-lg">
@@ -235,26 +116,26 @@ export default function ServicesPage() {
               className="h-full w-full object-cover"
             />
           </div>
-          <ul className="space-y-2 text-sm text-gray-300">
+          <ul className="space-y-2 text-sm text-gray-800">
             <li className="flex items-center">
-              <Tv className="mr-2 h-4 w-4 text-blue-500" />
+              <Tv className="mr-2 h-4 w-4 text-primary" />
               <span>4K Projection</span>
             </li>
             <li className="flex items-center">
-              <Speaker className="mr-2 h-4 w-4 text-blue-500" />
+              <Speaker className="mr-2 h-4 w-4 text-primary" />
               <span>7.1 Surround Sound</span>
             </li>
             <li className="flex items-center">
-              <Users className="mr-2 h-4 w-4 text-blue-500" />
+              <Users className="mr-2 h-4 w-4 text-primary" />
               <span>Up to 10 guests</span>
             </li>
           </ul>
-          <p className="mt-4 text-lg font-bold text-white">$150/hour</p>
+          <p className="mt-4 text-lg font-bold text-black">$150/hour</p>
         </CardContent>
-        <CardFooter>
+        <CardFooter>  
           <Button
             variant="outline"
-            className="w-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+            className="w-full border border-primary text-primary hover:bg-primary hover:text-white transition"
             asChild
           >
             <Link href="/book-now">Book Now</Link>

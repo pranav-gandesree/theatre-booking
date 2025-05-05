@@ -66,119 +66,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Values */}
-      {/* <section className="bg-muted/30 py-16 md:py-24">
-        <div className="container px-4 sm:px-6">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Values</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground">
-              At yovanAV, we're guided by a commitment to excellence and a passion for creating unforgettable
-              experiences.
-            </p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Film className="h-6 w-6" />
-              </div>
-              <h3 className="mb-2 text-xl font-bold">Quality</h3>
-              <p className="text-muted-foreground">
-                We never compromise on the quality of our equipment, service, or overall experience.
-              </p>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Users className="h-6 w-6" />
-              </div>
-              <h3 className="mb-2 text-xl font-bold">Personalization</h3>
-              <p className="text-muted-foreground">
-                We tailor every experience to meet the unique needs and preferences of our customers.
-              </p>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Star className="h-6 w-6" />
-              </div>
-              <h3 className="mb-2 text-xl font-bold">Innovation</h3>
-              <p className="text-muted-foreground">
-                We continuously seek new ways to enhance our offerings and stay ahead of industry trends.
-              </p>
-            </div>
-            <div className="rounded-xl bg-white p-6 shadow-md">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Award className="h-6 w-6" />
-              </div>
-              <h3 className="mb-2 text-xl font-bold">Excellence</h3>
-              <p className="text-muted-foreground">
-                We strive for excellence in every aspect of our business, from customer service to technical
-                performance.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-
-
-
-
-{/* <section className="bg-[#0d0f12] py-16 md:py-24">
-  <div className="container px-4 sm:px-6">
-    <div className="mb-12 text-center">
-      <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Our Values</h2>
-      <p className="mx-auto max-w-2xl text-gray-400">
-        At yovanAV, we're guided by a commitment to excellence and a passion for creating unforgettable
-        experiences.
-      </p>
-    </div>
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-     
-      <div className="rounded-xl bg-[#1a1c20] p-6 shadow-lg transition hover:scale-105 hover:shadow-xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#b91c1c] text-white">
-          <Film className="h-6 w-6" />
-        </div>
-        <h3 className="mb-2 text-xl font-bold text-white">Quality</h3>
-        <p className="text-gray-400">
-          We never compromise on the quality of our equipment, service, or overall experience.
-        </p>
-      </div>
-
       
-      <div className="rounded-xl bg-[#1a1c20] p-6 shadow-lg transition hover:scale-105 hover:shadow-xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#b91c1c] text-white">
-          <Users className="h-6 w-6" />
-        </div>
-        <h3 className="mb-2 text-xl font-bold text-white">Personalization</h3>
-        <p className="text-gray-400">
-          We tailor every experience to meet the unique needs and preferences of our customers.
-        </p>
-      </div>
-
-    
-      <div className="rounded-xl bg-[#1a1c20] p-6 shadow-lg transition hover:scale-105 hover:shadow-xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#b91c1c] text-white">
-          <Star className="h-6 w-6" />
-        </div>
-        <h3 className="mb-2 text-xl font-bold text-white">Innovation</h3>
-        <p className="text-gray-400">
-          We continuously seek new ways to enhance our offerings and stay ahead of industry trends.
-        </p>
-      </div>
-
-    
-      <div className="rounded-xl bg-[#1a1c20] p-6 shadow-lg transition hover:scale-105 hover:shadow-xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#b91c1c] text-white">
-          <Award className="h-6 w-6" />
-        </div>
-        <h3 className="mb-2 text-xl font-bold text-white">Excellence</h3>
-        <p className="text-gray-400">
-          We strive for excellence in every aspect of our business, from customer service to technical
-          performance.
-        </p>
-      </div>
-    </div>
-  </div>
-</section> */}
 
 
 <section className="bg-gradient-to-br from-[#0d0f12] to-[#1a1c20] py-16 md:py-24">
@@ -193,7 +81,7 @@ export default function AboutPage() {
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
      
       <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400 shadow-lg">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
           <Film className="h-6 w-6" />
         </div>
         <h3 className="mb-2 text-xl font-semibold text-white">Quality</h3>
@@ -204,7 +92,7 @@ export default function AboutPage() {
 
   
       <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400 shadow-lg">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
           <Users className="h-6 w-6" />
         </div>
         <h3 className="mb-2 text-xl font-semibold text-white">Personalization</h3>
@@ -215,7 +103,7 @@ export default function AboutPage() {
 
       
       <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400 shadow-lg">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
           <Star className="h-6 w-6" />
         </div>
         <h3 className="mb-2 text-xl font-semibold text-white">Innovation</h3>
@@ -226,7 +114,7 @@ export default function AboutPage() {
 
      
       <div className="rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-md transition hover:scale-105 hover:shadow-2xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400 shadow-lg">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/20 text-red-400 shadow-lg">
           <Award className="h-6 w-6" />
         </div>
         <h3 className="mb-2 text-xl font-semibold text-white">Excellence</h3>

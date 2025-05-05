@@ -1,63 +1,135 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Calendar, Clock, Film, MapPin } from "lucide-react"
-import { getBookings } from "@/actions/GetBookings"
+import { Calendar, Clock, Film } from "lucide-react";
+import { GetBookingsByNumber } from "@/actions/GetBookings"
 
 export default function MyBookingsPage() {
-  const [email, setEmail] = useState("")
-  // const [bookingId, setBookingId] = useState("")
+  const [bookingNumber, setBookingNumber] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [bookings, setBookings] = useState<any[]>([])
 
   const handleLogin = async(e: React.FormEvent) => {
     e.preventDefault()
-    // In a real application, you would verify credentials here
-    const bookings = await getBookings(email);
-    console.log(bookings);
-    setIsLoggedIn(true)
+    const fetchedBookings = await GetBookingsByNumber(bookingNumber);
+    console.log("fetched bookings areeeeeee",fetchedBookings)
+    if (fetchedBookings && fetchedBookings.length > 0) {
+      setBookings(fetchedBookings);
+      setIsLoggedIn(true);
+    } else {
+      alert("No bookings found for this number");
+    }
   }
 
-  // Sample booking data for demonstration
-  const upcomingBookings = [
-    {
-      id: "BK-12345",
-      date: "March 25, 2025",
-      time: "6:00 PM - 9:00 PM",
-      theatre: "Premium Theatre",
-      package: "Celebration Package",
-      guests: "6 guests",
-      status: "Confirmed",
-    },
-  ]
+  // Filter bookings into upcoming and past
+  const currentDate = new Date();
+  const upcomingBookings = bookings.filter(booking => new Date(booking.date) >= currentDate);
+  const pastBookings = bookings.filter(booking => new Date(booking.date) < currentDate);
 
-  const pastBookings = [
-    {
-      id: "BK-12344",
-      date: "February 14, 2025",
-      time: "7:00 PM - 10:00 PM",
-      theatre: "VIP Suite",
-      package: "Concession Package",
-      guests: "2 guests",
-      status: "Completed",
-    },
-    {
-      id: "BK-12343",
-      date: "January 20, 2025",
-      time: "3:00 PM - 6:00 PM",
-      theatre: "Standard Theatre",
-      package: "Basic Package",
-      guests: "8 guests",
-      status: "Completed",
-    },
-  ]
+  const formatAddOns = (addOns: string[]) => {
+    return addOns?.join(", ") || "No add-ons";
+  };
+
+  const formatCakes = (cakes: string[]) => {
+    return cakes?.join(", ") || "No cakes selected";
+  };
+
+
+
+
+const BookingCard = ({ booking }: { booking: any }) => {
+  return (
+    <div key={booking.id} className="rounded-2xl border bg-card p-6 shadow-sm transition hover:shadow-md">
+      {/* Header */}
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div className="flex items-center gap-3">
+          <Film className="h-5 w-5 text-primary" />
+          <h3 className="text-xl font-semibold">{booking.booking_name}</h3>
+        </div>
+        <span
+          className={`rounded-full px-3 py-1 text-xs font-semibold ${
+            booking.status === "confirmed"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {booking.status}
+        </span>
+      </div>
+
+      {/* Date & Time */}
+      <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center">
+          <Calendar className="mr-2 h-4 w-4" />
+          {new Date(booking.date).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </div>
+        <div className="flex items-center">
+          <Clock className="mr-2 h-4 w-4" />
+          {booking.time_slots || "Time slot not specified"}
+        </div>
+      </div>
+
+      {/* Details */}
+      <div className="space-y-3 text-sm">
+        <div>
+          <span className="font-medium text-muted-foreground">Screen: </span>
+          <span className="capitalize font-semibold">{booking.screen}</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <span className="font-medium text-muted-foreground">Occasion: </span>
+            <span className="capitalize">{booking.occasion || "—"}</span>
+          </div>
+          <div>
+            <span className="font-medium text-muted-foreground">Total Persons: </span>
+            {booking.total_persons}
+          </div>
+
+          <div>
+            <span className="font-medium text-muted-foreground">Cakes: </span>
+            {formatCakes(booking.cake) || "—"}
+          </div>
+          <div>
+            <span className="font-medium text-muted-foreground">Add-ons: </span>
+            {formatAddOns(booking.add_ons) || "—"}
+          </div>
+
+          <div className="sm:col-span-2">
+            <span className="font-medium text-muted-foreground">Email: </span>
+            {booking.email_id}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer badges */}
+      <div className="mt-5 flex flex-wrap gap-2">
+        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+          Total Price: ₹{booking.total_price}
+        </span>
+        <span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">
+          Balance: ₹{booking.balance_amount}
+        </span>
+        <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium">
+          Booking ID: {booking.number}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+
 
   return (
     <div className="flex flex-col">
@@ -71,31 +143,20 @@ export default function MyBookingsPage() {
               <div className="mb-8 text-center">
                 <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Access Your Bookings</h2>
                 <p className="text-muted-foreground">
-                  Enter your email and booking ID to view your reservation details.
+                  Enter your booking number to view your reservation details.
                 </p>
               </div>
               <form onSubmit={handleLogin} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label htmlFor="bookingNumber">Phone Number</Label>
                   <Input
-                    id="email"
-                    type="email"
-                    placeholder="your@email.com"
+                    id="bookingNumber"
+                    placeholder="Phone number"
                     required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={bookingNumber}
+                    onChange={(e) => setBookingNumber(e.target.value)}
                   />
                 </div>
-                {/* <div className="space-y-2">
-                  <Label htmlFor="bookingId">Booking ID</Label>
-                  <Input
-                    id="bookingId"
-                    placeholder="BK-12345"
-                    required
-                    value={bookingId}
-                    onChange={(e) => setBookingId(e.target.value)}
-                  />
-                </div> */}
                 <Button type="submit" className="w-full">
                   View Bookings
                 </Button>
@@ -114,7 +175,7 @@ export default function MyBookingsPage() {
               <div className="mb-12 text-center">
                 <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Your Bookings</h2>
                 <p className="mx-auto max-w-2xl text-muted-foreground">
-                  View and manage your upcoming and past bookings with yovanAV.
+                  View and manage your bookings with yovanAV.
                 </p>
               </div>
 
@@ -127,56 +188,7 @@ export default function MyBookingsPage() {
                   {upcomingBookings.length > 0 ? (
                     <div className="space-y-6">
                       {upcomingBookings.map((booking) => (
-                        <div key={booking.id} className="rounded-xl border bg-card p-6 shadow-sm">
-                          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-                            <div>
-                              <div className="mb-2 flex items-center">
-                                <Film className="mr-2 h-5 w-5 text-primary" />
-                                <h3 className="text-xl font-bold">{booking.theatre}</h3>
-                                <span className="ml-3 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
-                                  {booking.status}
-                                </span>
-                              </div>
-                              <div className="space-y-1 text-sm text-muted-foreground">
-                                <div className="flex items-center">
-                                  <Calendar className="mr-2 h-4 w-4" />
-                                  <span>{booking.date}</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <Clock className="mr-2 h-4 w-4" />
-                                  <span>{booking.time}</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <MapPin className="mr-2 h-4 w-4" />
-                                  <span>123 Cinema Street, Movie City</span>
-                                </div>
-                              </div>
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                                  {booking.package}
-                                </span>
-                                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium">
-                                  {booking.guests}
-                                </span>
-                                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium">
-                                  Booking ID: {booking.id}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="flex flex-col gap-2 sm:items-end">
-                              <Button variant="outline" size="sm">
-                                Modify Booking
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="border-destructive text-destructive hover:bg-destructive/10"
-                              >
-                                Cancel Booking
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
+                        <BookingCard key={booking.id} booking={booking} />
                       ))}
                     </div>
                   ) : (
@@ -196,52 +208,7 @@ export default function MyBookingsPage() {
                   {pastBookings.length > 0 ? (
                     <div className="space-y-6">
                       {pastBookings.map((booking) => (
-                        <div key={booking.id} className="rounded-xl border bg-card p-6 shadow-sm">
-                          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-                            <div>
-                              <div className="mb-2 flex items-center">
-                                <Film className="mr-2 h-5 w-5 text-primary" />
-                                <h3 className="text-xl font-bold">{booking.theatre}</h3>
-                                <span className="ml-3 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium">
-                                  {booking.status}
-                                </span>
-                              </div>
-                              <div className="space-y-1 text-sm text-muted-foreground">
-                                <div className="flex items-center">
-                                  <Calendar className="mr-2 h-4 w-4" />
-                                  <span>{booking.date}</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <Clock className="mr-2 h-4 w-4" />
-                                  <span>{booking.time}</span>
-                                </div>
-                                <div className="flex items-center">
-                                  <MapPin className="mr-2 h-4 w-4" />
-                                  <span>123 Cinema Street, Movie City</span>
-                                </div>
-                              </div>
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                                  {booking.package}
-                                </span>
-                                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium">
-                                  {booking.guests}
-                                </span>
-                                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium">
-                                  Booking ID: {booking.id}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="flex flex-col gap-2 sm:items-end">
-                              <Button variant="outline" size="sm">
-                                View Details
-                              </Button>
-                              <Button variant="outline" size="sm">
-                                Book Again
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
+                        <BookingCard key={booking.id} booking={booking} />
                       ))}
                     </div>
                   ) : (

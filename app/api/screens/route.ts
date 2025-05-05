@@ -7,7 +7,6 @@ export async function GET(req: NextRequest) {
     const { data: screens, error } = await supabase
       .from("screens")
       .select("id, name, capacity, price, time_slots(id, start_time, end_time)")
-      .order("name", { ascending: true });
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });

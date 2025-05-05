@@ -38,7 +38,7 @@ export default function BookingSummaryStep({
               <MapPin className="mt-1 h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Venue</p>
-                <p className="text-muted-foreground">{bookingData.screenName || "Screen"}</p>
+                <p className="text-muted-foreground">{bookingData.screen || "Screen"}</p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
@@ -52,7 +52,7 @@ export default function BookingSummaryStep({
               <Clock className="mt-1 h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Time</p>
-                <p className="text-muted-foreground">{bookingData.time || "Not selected"}</p>
+                <p className="text-muted-foreground">{bookingData.time_slots || "Not selected"}</p>
               </div>
             </div>
           </div>
@@ -70,8 +70,8 @@ export default function BookingSummaryStep({
               <p className="text-muted-foreground">{formData.persons || "Not specified"}</p>
             </div>
             <div>
-              <p className="font-medium">WhatsApp</p>
-              <p className="text-muted-foreground">{formData.whatsapp || "Not provided"}</p>
+              <p className="font-medium">Number</p>
+              <p className="text-muted-foreground">{formData.number || "Not provided"}</p>
             </div>
             <div>
               <p className="font-medium">Email</p>
@@ -96,10 +96,7 @@ export default function BookingSummaryStep({
                   </p>
                 </div>
               )}
-              <div>
-                <p className="font-medium">Decoration</p>
-                <p className="text-muted-foreground">{formData.wantDecoration === "yes" ? "Yes" : "No"}</p>
-              </div>
+             
             </div>
           </div>
         )}
@@ -110,7 +107,7 @@ export default function BookingSummaryStep({
             <div className="flex items-start space-x-4">
               <div className="relative h-20 w-20 overflow-hidden rounded-md">
                 <Image
-                  src="/placeholder.svg?height=80&width=80"
+                  src={selectedCakeObj.image}
                   alt={selectedCakeObj?.name || ""}
                   fill
                   className="object-cover"
@@ -131,7 +128,7 @@ export default function BookingSummaryStep({
               {selectedAddonObjs.map((addon, index) => (
                 <div key={index} className="flex items-start space-x-4">
                   <div className="relative h-16 w-16 overflow-hidden rounded-md">
-                    <Image src="/placeholder.svg?height=64&width=64" alt={addon.name} fill className="object-cover" />
+                    <Image src={addon.image} alt={addon.name} fill className="object-cover" />
                   </div>
                   <div>
                     <p className="font-medium">{addon.name}</p>

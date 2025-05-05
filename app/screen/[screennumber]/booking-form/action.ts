@@ -4,8 +4,53 @@ import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
+
+export async function getAllTimeSlots() {
+  try {
+    const { data: timeSlots, error } = await supabase
+      .from("time_slots")
+      .select("*")
+      .order('start_time');
+
+    if (error) {
+      console.error("Error fetching time slots:", error);
+      return { error: error.message };
+    }
+
+    return { timeSlots };
+  } catch (error) {
+    console.error("Error in getAllTimeSlots:", error);
+    return { error: "Failed to fetch time slots" };
+  }
+}
+
+
+
+
+export async function getScreenDetails(screenNumber: string) {
+  try {
+    const { data: screen, error } = await supabase
+      .from("screens")
+      .select("name, capacity")
+      .eq("id", screenNumber)
+      .single();
+
+    if (error) {
+      console.error("Error fetching screen details:", error);
+      return { error: error.message };
+    }
+    
+    return { screen };
+  } catch (error) {
+    console.error("Error in getScreenDetails:", error);
+    return { error: "Failed to fetch screen details" };
+  }
+}
+
+
+
 
 export async function saveBooking(formData: FormData) {
   const screenNumber = formData.get("screenNumber");
