@@ -109,7 +109,7 @@ export default function ServicesPage() {
         <CardContent>
           <div className="mb-4 aspect-video overflow-hidden rounded-lg">
             <Image
-              src="/placeholder.svg?height=400&width=600"
+              src="https://res.cloudinary.com/dawavjsrp/image/upload/v1746445145/IMG-20250426-WA0004_a3zoxy.jpg"
               alt="Standard Theatre"
               width={600}
               height={400}
@@ -144,41 +144,42 @@ export default function ServicesPage() {
       </Card>
 
       {/* Premium Theatre */}
-      <Card className="bg-[#1a1a1a] border border-[#333] rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+      <Card className=" border border-primary rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
         <CardHeader>
-          <CardTitle className="text-white">Premium Theatre</CardTitle>
-          <CardDescription className="text-gray-400">Enhanced experience</CardDescription>
+        <CardTitle className="text-black">Premium Theatre</CardTitle>
+          <CardDescription className="text-gray-800">Enhanced experience</CardDescription>
+
         </CardHeader>
         <CardContent>
           <div className="mb-4 aspect-video overflow-hidden rounded-lg">
             <Image
-              src="/placeholder.svg?height=400&width=600"
-              alt="Premium Theatre"
+              src="https://res.cloudinary.com/dawavjsrp/image/upload/v1746445151/IMG-20250426-WA0013_whtm0f.jpg"
+              alt="Standard Theatre"
               width={600}
               height={400}
               className="h-full w-full object-cover"
             />
           </div>
-          <ul className="space-y-2 text-sm text-gray-300">
+          <ul className="space-y-2 text-sm text-gray-800">
             <li className="flex items-center">
-              <Tv className="mr-2 h-4 w-4 text-blue-500" />
-              <span>4K Laser Projection</span>
+              <Tv className="mr-2 h-4 w-4 text-primary" />
+              <span>4K Projection</span>
             </li>
             <li className="flex items-center">
-              <Speaker className="mr-2 h-4 w-4 text-blue-500" />
-              <span>Dolby Atmos Sound</span>
+              <Speaker className="mr-2 h-4 w-4 text-primary" />
+              <span>7.1 Surround Sound</span>
             </li>
             <li className="flex items-center">
-              <Users className="mr-2 h-4 w-4 text-blue-500" />
-              <span>Up to 15 guests</span>
+              <Users className="mr-2 h-4 w-4 text-primary" />
+              <span>Up to 10 guests</span>
             </li>
           </ul>
-          <p className="mt-4 text-lg font-bold text-white">$250/hour</p>
+          <p className="mt-4 text-lg font-bold text-black">$150/hour</p>
         </CardContent>
-        <CardFooter>
+        <CardFooter>  
           <Button
             variant="outline"
-            className="w-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+            className="w-full border border-primary text-primary hover:bg-primary hover:text-white transition"
             asChild
           >
             <Link href="/book-now">Book Now</Link>
@@ -187,47 +188,48 @@ export default function ServicesPage() {
       </Card>
 
       {/* VIP Suite */}
-      <Card className="bg-[#1a1a1a] border border-[#333] rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+      <Card className=" border border-primary rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
         <CardHeader>
-          <CardTitle className="text-white">VIP Suite</CardTitle>
-          <CardDescription className="text-gray-400">Ultimate luxury</CardDescription>
+        <CardTitle className="text-black">VIP Suite</CardTitle>
+        <CardDescription className="text-gray-800">Ultimate luxury</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="mb-4 aspect-video overflow-hidden rounded-lg">
             <Image
-              src="/placeholder.svg?height=400&width=600"
-              alt="VIP Suite"
+              src="https://res.cloudinary.com/dawavjsrp/image/upload/v1742461146/about2_lj8tze.jpg"
+              alt="Standard Theatre"
               width={600}
               height={400}
               className="h-full w-full object-cover"
             />
           </div>
-          <ul className="space-y-2 text-sm text-gray-300">
+          <ul className="space-y-2 text-sm text-gray-800">
             <li className="flex items-center">
-              <Tv className="mr-2 h-4 w-4 text-blue-500" />
-              <span>8K Projection</span>
+              <Tv className="mr-2 h-4 w-4 text-primary" />
+              <span>4K Projection</span>
             </li>
             <li className="flex items-center">
-              <Speaker className="mr-2 h-4 w-4 text-blue-500" />
-              <span>Premium Dolby Atmos</span>
+              <Speaker className="mr-2 h-4 w-4 text-primary" />
+              <span>7.1 Surround Sound</span>
             </li>
             <li className="flex items-center">
-              <Users className="mr-2 h-4 w-4 text-blue-500" />
-              <span>Up to 8 guests with luxury recliners</span>
+              <Users className="mr-2 h-4 w-4 text-primary" />
+              <span>Up to 10 guests</span>
             </li>
           </ul>
-          <p className="mt-4 text-lg font-bold text-white">$350/hour</p>
+          <p className="mt-4 text-lg font-bold text-black">$150/hour</p>
         </CardContent>
-        <CardFooter>
+        <CardFooter>  
           <Button
             variant="outline"
-            className="w-full border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+            className="w-full border border-primary text-primary hover:bg-primary hover:text-white transition"
             asChild
           >
             <Link href="/book-now">Book Now</Link>
           </Button>
         </CardFooter>
       </Card>
+      
     </div>
   </div>
 </div>
@@ -576,92 +578,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Process Section */}
-      {/* <section className="bg-muted/30 py-16 md:py-24">
-        <div className="container px-4 sm:px-6">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Process</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground">
-              We follow a comprehensive approach to ensure your cinema experience or installation exceeds expectations.
-            </p>
-          </div>
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              <div className="relative">
-                <div className="absolute left-[22px] top-10 h-[calc(100%-40px)] w-px bg-border md:left-1/2 lg:left-[22px]"></div>
-                <div className="flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    1
-                  </div>
-                  <div className="ml-4 md:hidden lg:block">
-                    <h3 className="text-lg font-bold">Consultation</h3>
-                  </div>
-                </div>
-                <div className="mt-2 md:mt-4 md:text-center lg:mt-2 lg:text-left">
-                  <h3 className="hidden text-lg font-bold md:block lg:hidden">Consultation</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    We begin with a detailed consultation to understand your needs, preferences, and budget.
-                  </p>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="absolute left-[22px] top-10 h-[calc(100%-40px)] w-px bg-border md:left-1/2 lg:left-[22px]"></div>
-                <div className="flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    2
-                  </div>
-                  <div className="ml-4 md:hidden lg:block">
-                    <h3 className="text-lg font-bold">Design</h3>
-                  </div>
-                </div>
-                <div className="mt-2 md:mt-4 md:text-center lg:mt-2 lg:text-left">
-                  <h3 className="hidden text-lg font-bold md:block lg:hidden">Design</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Our experts create a custom design plan tailored to your space and requirements.
-                  </p>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="absolute left-[22px] top-10 h-[calc(100%-40px)] w-px bg-border md:left-1/2 lg:left-[22px]"></div>
-                <div className="flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    3
-                  </div>
-                  <div className="ml-4 md:hidden lg:block">
-                    <h3 className="text-lg font-bold">Implementation</h3>
-                  </div>
-                </div>
-                <div className="mt-2 md:mt-4 md:text-center lg:mt-2 lg:text-left">
-                  <h3 className="hidden text-lg font-bold md:block lg:hidden">Implementation</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Our skilled technicians handle the installation with meticulous attention to detail.
-                  </p>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    4
-                  </div>
-                  <div className="ml-4 md:hidden lg:block">
-                    <h3 className="text-lg font-bold">Calibration & Support</h3>
-                  </div>
-                </div>
-                <div className="mt-2 md:mt-4 md:text-center lg:mt-2 lg:text-left">
-                  <h3 className="hidden text-lg font-bold md:block lg:hidden">Calibration & Support</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    We fine-tune your system for optimal performance and provide ongoing support.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-
-
-
 
 <section className="bg-muted/30 py-16 md:py-24">
   <div className="container px-4 sm:px-6">
@@ -763,4 +679,3 @@ function Users({ className, ...props }: React.ComponentProps<typeof Tv>) {
     </svg>
   )
 }
-

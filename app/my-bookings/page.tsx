@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar, Clock, Film } from "lucide-react";
 import { GetBookingsByNumber } from "@/actions/GetBookings"
+import { toast } from "@/components/ui/use-toast";
+
 
 export default function MyBookingsPage() {
   const [bookingNumber, setBookingNumber] = useState("")
@@ -23,6 +25,13 @@ export default function MyBookingsPage() {
     if (fetchedBookings && fetchedBookings.length > 0) {
       setBookings(fetchedBookings);
       setIsLoggedIn(true);
+
+      toast({
+        title: "🎉 Booking Confirmed",
+        description: "Your booking has been saved successfully.",
+        variant: "default",
+      });
+
     } else {
       alert("No bookings found for this number");
     }
@@ -273,4 +282,3 @@ const BookingCard = ({ booking }: { booking: any }) => {
     </div>
   )
 }
-

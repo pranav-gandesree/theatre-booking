@@ -3,13 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Calendar, PartyPopper, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TypeWriter } from "@/components/TypeWriter";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen w-full overflow-hidden">
-        {/* Using a placeholder image with proper error handling */}
+     
+      {/* <section className="relative h-screen w-full overflow-hidden">
         <div className="relative h-full w-full">
           <Image
             src="/main.jpg"
@@ -46,7 +46,58 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+
+<section className="relative flex h-screen w-full items-center overflow-hidden">
+  
+  <div className="absolute inset-0 z-0">
+    <Image
+      src="/main.jpg"
+      alt="Home Theatre Experience"
+      fill
+      className="object-cover brightness-[0.8]"
+      priority
+    />
+   
+    <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
+  </div>
+  
+  
+  <div className="container relative z-20 px-4 sm:px-6">
+    <div className="max-w-2xl">
+      <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+        Your Private Cinema
+         {/* <span className="text-primary animate-popIn animate-pulseFade">Experience</span> */}
+
+      </h1>
+         <TypeWriter text="Experience"  className="text-6xl ml-2 font-bold text-primary"  />
+
+      <p className="mb-8 max-w-lg mt-2 ml-2 text-lg text-white/90">
+        Transform any occasion into an unforgettable cinematic experience with our premium home theatre booking
+        service.
+      </p>
+      <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+        <Button size="lg" asChild>
+          <Link href="/book-now">
+            Book Now <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
+        <Button
+          variant="outline"
+          size="lg"
+          className="bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
+          asChild
+        >
+          <Link href="/gallery">Explore Gallery</Link>
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 
       {/* Features Section */}
       <section className="py-20">
