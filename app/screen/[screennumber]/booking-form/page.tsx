@@ -215,14 +215,14 @@ export default function BookingFormPage() {
       const cakesAmt = cakes.filter(c => selectedCakes.includes(c.name)).reduce((sum, c) => sum + c.price, 0)
       const addonsAmt = addons.filter(a => selectedAddons.includes(a.name)).reduce((sum, a) => sum + a.price, 0)
       const total = basePrice + cakesAmt + addonsAmt
-      const balance = total - 1000
+      
       updated = {
         ...updated,
         cake: selectedCakes,
         add_ons: selectedAddons,
         total_price: total,
-        balance_amount: balance,
       }
+      // balance_amount is now calculated in handleSubmit based on the final total_price after discounts
     }
     setBookingData(updated)
     sessionStorage.setItem("bookingData", JSON.stringify(updated))
@@ -399,6 +399,20 @@ export default function BookingFormPage() {
     }
   }
 
+  const handleTotalAmountChange = (amount: number) => {
+    setBookingData(prev => ({
+      ...prev,
+      total_price: amount
+    }));
+  };
+
+  const handleBalanceAmountChange = (amount: number) => {
+    setBookingData(prev => ({
+      ...prev,
+      balance_amount: amount
+    }));
+  };
+
   return (
     <div className="container px-4 py-8">
       <h1 className="text-2xl font-bold text-center mb-6">
@@ -443,6 +457,7 @@ export default function BookingFormPage() {
             date={formatDate(bookingData.date)}
             time={bookingData.time_slots}
             customerName={formData.name}
+            number={formData.number}
             occasion={selectedOccObj?.name}
             occasionNames={occasionNames.filter((n) => n.trim())}
             cakes={cakes.filter(c => selectedCakes.includes(c.name)).map(c => ({ name: c.name, price: c.price }))}
@@ -460,6 +475,8 @@ export default function BookingFormPage() {
               addons.filter(a => selectedAddons.includes(a.name)).reduce((sum, a) => sum + a.price, 0) - 
               1000
             }
+            onTotalAmountChange={handleTotalAmountChange}
+            onBalanceAmountChange={handleBalanceAmountChange}
           />
           <ProgressIndicator currentStep={currentStep} totalSteps={steps.length} />
         </div>
