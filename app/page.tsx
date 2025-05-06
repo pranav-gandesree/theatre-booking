@@ -17,10 +17,6 @@ export default function Home() {
             fill
             className="object-cover brightness-[0.8]"
             priority
-            onError={(e) => {
-              // Fallback if the image fails to load
-              e.currentTarget.style.display = 'none';
-            }}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
@@ -116,10 +112,6 @@ export default function Home() {
               alt="Theatre Background"
               fill
               className="object-cover brightness-[0.8]"
-              onError={(e) => {
-                // Fallback if the image fails to load
-                e.currentTarget.style.display = 'none';
-              }}
             />
           </div>
         </div>
