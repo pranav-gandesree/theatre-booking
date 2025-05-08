@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Key } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -49,6 +49,7 @@ export default function BookNowPage() {
     name: string
     capacity: number
     price: number
+    images?: string[]  
     time_slots: (string | { start_time: string; end_time: string })[]
     availability?: Record<string, number>
     description?: string
@@ -64,6 +65,7 @@ export default function BookNowPage() {
         const result = await response.json()
 
         const data = Array.isArray(result) ? result : result.screens
+        console.log('Screens are from book now page', data);
         setScreens(data)
       } catch (error) {
         console.error("Error fetching screens:", error)
@@ -201,6 +203,23 @@ function ScreenCard({
   selectedDate: string;
   bookedSlots: Array<{ screen: string, time_slots: string, date: string }>;
 }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    // Auto-rotate images every 3 seconds
+    const intervalId = setInterval(() => {
+      if (screen.images?.length > 1) {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % screen.images.length);
+      }
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [screen.images]);
+
+  const handleDotClick = (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
   const isSlotBooked = (slot: string) => {
     return bookedSlots.some(booking => 
       booking.screen.toLowerCase() === screen.name.toLowerCase() && 
@@ -228,6 +247,27 @@ function ScreenCard({
   return (
     <Card className="overflow-hidden">
       <CardHeader className="pb-3">
+        {screen.images?.length > 0 && (
+          <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
+            <img
+              src={screen.images[currentImageIndex]}
+              alt={`Screen ${screen.name} image`}
+              className="w-full h-full object-cover transition-opacity duration-700"
+            />
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+              {screen.images.map((_: string, idx: number) => (
+                <div
+                  key={idx}
+                  className={`h-2 w-2 rounded-full cursor-pointer ${
+                    currentImageIndex === idx ? "bg-white" : "bg-white/50"
+                  }`}
+                  onClick={() => handleDotClick(idx)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="flex justify-between items-start">
           <div>
             <CardTitle>Screen {screen.id} - {screen.name}</CardTitle>

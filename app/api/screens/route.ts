@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     // Fetch screens with their time slots
     const { data: screens, error } = await supabase
       .from("screens")
-      .select("id, name, capacity, price, time_slots(id, start_time, end_time)")
+      .select("id, name, capacity, price, images, time_slots(id, start_time, end_time)")
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
