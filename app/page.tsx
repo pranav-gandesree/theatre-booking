@@ -8,52 +8,13 @@ import { TypeWriter } from "@/components/TypeWriter";
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-     
-      {/* <section className="relative h-screen w-full overflow-hidden">
-        <div className="relative h-full w-full">
-          <Image
-            src="/main.jpg"
-            alt="Home Theatre Experience"
-            fill
-            className="object-cover brightness-[0.8]"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-        <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Your Private Cinema <span className="text-primary">Experience</span>
-            </h1>
-            <p className="mb-8 max-w-lg text-lg text-white/90">
-              Transform any occasion into an unforgettable cinematic experience with our premium home theatre booking
-              service.
-            </p>
-            <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-              <Button size="lg" asChild>
-                <Link href="/book-now">
-                  Book Now <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
-                asChild
-              >
-                <Link href="/gallery">Explore Gallery</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
 
 <section className="relative flex h-screen w-full items-center overflow-hidden">
   
   <div className="absolute inset-0 z-0">
     <Image
-      src="/main.jpg"
+      src="https://res.cloudinary.com/dawavjsrp/image/upload/v1742461159/main_iged7m.jpg"
       alt="Home Theatre Experience"
       fill
       className="object-cover brightness-[0.8]"
@@ -159,7 +120,7 @@ export default function Home() {
         <div className="relative h-full w-full">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/home2.jpg"
+              src="https://res.cloudinary.com/dawavjsrp/image/upload/v1742461147/home2_cowbjr.jpg"
               alt="Theatre Background"
               fill
               className="object-cover brightness-[0.8]"

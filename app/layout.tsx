@@ -7,17 +7,19 @@ import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import './globals.css'
 import { DataProvider } from "@/context/DataContext"
-import { BookingProvider } from "@/context/BookingContext"
 
 
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: "yovanAV | Premium Home Theatre Booking",
-  description: "Book your private cinema experience for any occasion",
-    generator: 'v0.dev'
-}
+  export const metadata: Metadata = {
+    title: "yovanAV | Premium Home Theatre Booking",
+    description: "Book your private cinema experience for any occasion",
+    icons: {
+      icon: "/logo.png",
+    },
+  }
+
 
 export default function RootLayout({
   children,

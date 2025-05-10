@@ -5,6 +5,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Film, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
+import logo from "@/public/logo.png"
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -20,8 +22,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center space-x-2">
-          <Film className="h-6 w-6 text-primary" />
+        <Link href="/" className="flex items-center ">
+          {/* <Film className="h-6 w-6 text-primary" /> */}
+          <Image src={logo} width={120} height={120} alt="logo"/>
           <span className="text-xl font-bold">yovanav-7screens</span>
         </Link>
 

@@ -7,11 +7,10 @@ import { Calendar } from "@/components/ui/calendar"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CalendarIcon, Film, Volume2, Monitor, Clock, Users, CreditCard } from "lucide-react"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
+import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
-import main from "../../public/main.jpg"
 import { useRouter } from "next/navigation"
 import { GetBookingsByDate } from "@/actions/GetBookings"
 
@@ -96,7 +95,7 @@ export default function BookNowPage() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative h-[50vh] w-full overflow-hidden">
-        <Image src={main} alt="Book yovanAV" fill className="object-cover brightness-[0.6]" priority />
+        <Image src="https://res.cloudinary.com/dawavjsrp/image/upload/v1742461159/main_iged7m.jpg" alt="Book yovanAV" fill className="object-cover brightness-[0.6]" priority />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
         <div className="container relative z-10 flex h-full flex-col justify-center px-4 sm:px-6">
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">

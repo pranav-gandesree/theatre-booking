@@ -11,7 +11,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative h-[100vh] w-full overflow-hidden">
         <Image
-          src="/about.jpg"
+          src="https://res.cloudinary.com/dawavjsrp/image/upload/v1742461146/about_e6kcmi.jpg"
           alt="About yovanAV"
           fill
           className="object-cover brightness-[0.6]"
@@ -56,7 +56,7 @@ export default function AboutPage() {
             </div>
             <div className="relative h-[400px] overflow-hidden rounded-xl md:h-[500px]">
               <Image
-                src="/about2.jpg"
+                src="https://res.cloudinary.com/dawavjsrp/image/upload/v1742461146/about2_lj8tze.jpg"
                 alt="yovanAV Founders"
                 fill
                 className="object-cover"
