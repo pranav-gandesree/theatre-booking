@@ -47,6 +47,7 @@ export default function BookingFormPage() {
   const params = useParams()
   const searchParams = useSearchParams()
   const { cakes, addons } = useData()
+  const [loading, setLoading] = useState(false);
 
   // Steps
   const steps = ["Customer Details", "Occasion", "Extras", "Summary"]
@@ -228,11 +229,94 @@ export default function BookingFormPage() {
     sessionStorage.setItem("bookingData", JSON.stringify(updated))
   }
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   saveCurrentStepData()
+  //   try {
+
+  //     const res = await fetch("/api/payment/createOrder", {
+  //       method: "POST",
+  //     })
+  //     const data = await res.json()
+  //     console.log("data from create order is", data)
+
+
+  //     const paymentData = {
+  //       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+  //       order_id: data.id,
+  
+  //       handler: async function (response: any) {
+  //         // verify payment
+  //         const res = await fetch("/api/payment/verifyOrder", {
+  //           method: "POST",
+  //           body: JSON.stringify({
+  //             orderId: response.razorpay_order_id,
+  //             razorpayPaymentId: response.razorpay_payment_id,
+  //             razorpaySignature: response.razorpay_signature,
+  //           }),
+  //         });
+  //         const data = await res.json();
+  //         console.log(data);
+  //         if (data.isOk) {
+  //           // do whatever page transition you want here as payment was successful
+  //           alert("Payment successful");
+
+  //         } else {
+  //           alert("Payment failed");
+  //         }
+  //       },
+  //     };
+
+  //     const payment = new (window as any).Razorpay(paymentData);
+  //   payment.open();
+
+
+
+      // const payload = {
+      //   ...bookingData,
+      //   booking_name: formData.name,
+      //   total_persons: parseInt(formData.persons),
+      //   email_id: formData.email,
+      //   number: formData.number,
+      //   occasion: selectedOccasion || "",
+      //   first_person_name: occasionNames[0] || "",
+      //   second_person_name: occasionNames[1] || "",
+      //   cake: selectedCakes,
+      //   add_ons: selectedAddons,
+      //   date: bookingData.date,
+      //   time_slots: bookingData.time_slots,
+      //   total_price: bookingData.total_price,
+      //   balance_amount: bookingData.balance_amount,
+      // }
+      // console.log("payload from payloadisfrom creatingg",payload)
+
+      // const { error } = await supabase.from("bookings").insert([payload])
+      // if (error) throw error
+      // sessionStorage.removeItem("bookingData")
+
+      // alert("Payment successful")
+      // router.push("/")
+
+
+  //   } catch (err) {
+  //     console.error(err)
+  //     alert("Payment failed")
+  //   }
+  // }
+
+
+
+
+
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    saveCurrentStepData()
+    e.preventDefault();
+    setLoading(true);
+
     try {
-      const payload = {
+      // 1) Send all bookingData to your API to create a Razorpay order AND
+      //    insert a pending booking record in your DB
+
+           const payload = {
         ...bookingData,
         booking_name: formData.name,
         total_persons: parseInt(formData.persons),
@@ -248,27 +332,68 @@ export default function BookingFormPage() {
         total_price: bookingData.total_price,
         balance_amount: bookingData.balance_amount,
       }
-      console.log("payload from payloadisfrom creatingg",payload)
 
-      const { error } = await supabase.from("bookings").insert([payload])
-      if (error) throw error
-      sessionStorage.removeItem("bookingData")
-      toast({
-        title: "🎉 Booking Confirmed",
-        description: "Your booking has been saved successfully.",
-        variant: "default",
+      const res = await fetch("/api/payment/createOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payload }),
       });
-      router.push("/")
 
+      // const data = await res.json();
+      // console.log("data from create order is", data)
+
+      const { id: razorpayOrderId, amount, currency, razorpayKey } = await res.json();
+      console.log("razorpay order id is", razorpayOrderId)
+
+      // 2) Configure and open Razorpay checkout
+      const options = {
+        key: razorpayKey,
+        amount,
+        currency,
+        order_id: razorpayOrderId,
+        handler: async (response: any) => {
+          // 3) Verify payment + update your booking to “confirmed”
+          const verifyRes = await fetch("/api/payment/verifyOrder", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpayOrderId: response.razorpay_order_id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: response.razorpay_signature,
+            }),
+          });
+          const { isOk } = await verifyRes.json();
+          if (isOk) {
+            alert("Payment successful!");
+            router.push("/");
+          } else {
+            alert("Payment verification failed.");
+          }
+        },
+        // prefill: {
+        //   name: bookingData.name,
+        //   email: bookingData.email,
+        //   contact: bookingData.number,
+        // },
+        // notes: {
+        //   screen: bookingData.screenName,
+        // },
+      };
+
+      new window.Razorpay(options).open();
     } catch (err) {
-      console.error(err)
-      toast({
-        title: "❌ Booking Failed",
-        description: "There was an error saving your booking. Please try again.",
-        variant: "destructive",
-      });
+      console.error(err);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
+
+
+
+
+
+
 
   const handleBack = () => router.push("/book-now")
 
@@ -415,6 +540,10 @@ export default function BookingFormPage() {
 
   return (
     <div className="container px-4 py-8">
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
       <h1 className="text-2xl font-bold text-center mb-6">
         Book {bookingData.screen} on {formatDate(bookingData.date)} @ {bookingData.time_slots}
       </h1>
@@ -444,7 +573,7 @@ export default function BookingFormPage() {
               </Button>
             ) : (
               <Button onClick={handleSubmit} disabled={!termsAccepted}>
-                Process & Pay Advance
+               {loading ? "Processing…" : "Pay Advance& Book "}
               </Button>
             )}
           </div>
@@ -468,7 +597,7 @@ export default function BookingFormPage() {
               cakes.filter(c => selectedCakes.includes(c.name)).reduce((sum, c) => sum + c.price, 0) +
               addons.filter(a => selectedAddons.includes(a.name)).reduce((sum, a) => sum + a.price, 0)
             }
-            advanceAmount={1000}
+            advanceAmount={700}
             balanceAmount={
               (searchParams.get('price') ? parseFloat(searchParams.get('price')!) : 0) + 
               cakes.filter(c => selectedCakes.includes(c.name)).reduce((sum, c) => sum + c.price, 0) +

@@ -7,6 +7,7 @@ import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import './globals.css'
 import { DataProvider } from "@/context/DataContext"
+import { Toaster } from "@/components/ui/toaster"
 
 
 
@@ -36,6 +37,7 @@ export default function RootLayout({
             <DataProvider>
               {/* <BookingProvider> */}
                 <main className="flex-1">{children}</main>
+                <Toaster /> 
               {/* </BookingProvider> */}
             </DataProvider>
             

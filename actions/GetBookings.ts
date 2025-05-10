@@ -35,46 +35,6 @@ export const GetBookingsByNumber = async (number: string) => {
 
 
 
-
-
-
-
-// export const GetBookingsByDate = async (date: Date) => {
-//   try {
-
-
-//     if (!date) {
-//       return { error: 'Date parameter is required'};
-//     }
-
-//     const { data, error } = await supabase
-//       .from('bookings')
-//       .select('*')
-//       .eq('date', date);
-
-//     if (error) {
-//       return{ error: error.message };
-//     }
-
-//     return { bookings: data };
-//   } catch (err) {
-//     console.error('Error fetching bookings by date:', err);
-//      return { error: 'Internal Server Error' };
-//   }
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const GetBookingsByDate = async (date: Date) => {
   try {
     if (!date) {
