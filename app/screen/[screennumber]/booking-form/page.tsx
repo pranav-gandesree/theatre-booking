@@ -346,11 +346,12 @@ export default function BookingFormPage() {
       console.log("razorpay order id is", razorpayOrderId)
 
       // 2) Configure and open Razorpay checkout
-      const options = {
+      const paymentData = {
         key: razorpayKey,
         amount,
         currency,
         order_id: razorpayOrderId,
+        
         handler: async (response: any) => {
           // 3) Verify payment + update your booking to “confirmed”
           const verifyRes = await fetch("/api/payment/verifyOrder", {
@@ -380,7 +381,8 @@ export default function BookingFormPage() {
         // },
       };
 
-      new window.Razorpay(options).open();
+      const payment = new (window as any).Razorpay(paymentData);
+      payment.open();
     } catch (err) {
       console.error(err);
       alert("Something went wrong. Please try again.");
